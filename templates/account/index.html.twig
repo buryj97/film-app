@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccountController!{% endblock %}
+
+{% block body %}
+
+<h1>{{ app.user.firstName }} {{ app.user.lastName }}</h1>
+<h2>{{ app.user.email }}</h2>
+<h2>{{ app.user.country }}</h2>
+
+<h2>Streaming Services</h2>
+
+{% for streamingServices in app.user.streamingServices %}
+<li>{{ streamingServices }}</li>
+
+{% endfor %}
+
+{% endblock %}

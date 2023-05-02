@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Find a Film{% endblock %}
+
+
+{% block body %}
+<style> .fit-cover {
+  object-fit: cover;
+}
+</style>
+<h1>Find a Film</h1>
+{{ form(form, { 'attr' : { 'class': 'film_search' } }) }}
+
+<div id="card-container"></div>
+photo
+title
+overview
+runtime
+year
+director
+streaming services 
+
+<p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+{% endblock %}
+
+{# 
+// // Object for examples
+// const film = {
+//   title: "",
+//   overview: "",
+//   streamingInfo: ["netflix"],
+//   cast: [],
+//   year: 2019,
+//   genres: [],
+//   originalLanguage: "",
+//   countries: ["us"],
+//   directors: [],
+//   runtime: 182,
+//   youtubeTrailerVideoId: "",
+//   youtubeTrailerVideoLink: "",
+//   posterPath: "",
+//   posterURLs: []; #}
+{# 
+    type:"movie"
+
+*** title:"#AnneFrank. Parallel Stories"
+
+*** overview:"One single Anne Frank moves us more than the countless others who suffered just as she did but whose faces have remained in the shadows-Primo Levi. The Oscar®-winning Helen Mirren will introduce audiences to Anne Frank's story through the words in her diary. The set will be her room in the secret refuge in Amsterdam, reconstructed in every detail by set designers from the Piccolo Theatre in Milan. Anne Frank this year would have been 90 years old. Anne's story is intertwined with that of five Holocaust survivors, teenage girls just like her, with the same ideals, the same desire to live: Arianna Szörenyi, Sarah Lichtsztejn-Montard, Helga Weiss and sisters Andra and Tatiana Bucci. Their testimonies alternate with those of their children and grandchildren."
+
+streamingInfo:us:netflix: REQUIRED
+
+cast:
+0:"Helen Mirren"
+1:"Anne Frank"
+2:"Martina Gatti"
+3:"Arianna Szorenyi"
+
+*** year:2019
+
+genres:0:
+id:18
+name:"Drama"
+1:
+id:36
+name:"History"
+
+originalLanguage:"en"
+
+countries: REQUIRED
+0:"IT"
+
+directors:
+0:"Sabina Fedeli"
+1:"Anna Migotto"
+
+*** runtime:92
+
+youtubeTrailerVideoId:"FzT7-NfkxLA"
+
+youtubeTrailerVideoLink:"https://www.youtube.com/watch?v=FzT7-NfkxLA"
+
+*** posterPath:"/hkC4yNDFmW1yQuQhtZydMeRuaAb.jpg"
+
+posterURLs:
+92:"https://image.tmdb.org/t/p/w92/hkC4yNDFmW1yQuQhtZydMeRuaAb.jpg"
+154:"https://image.tmdb.org/t/p/w154/hkC4yNDFmW1yQuQhtZydMeRuaAb.jpg"
+185:"https://image.tmdb.org/t/p/w185/hkC4yNDFmW1yQuQhtZydMeRuaAb.jpg"
+342:"https://image.tmdb.org/t/p/w342/hkC4yNDFmW1yQuQhtZydMeRuaAb.jpg"
+500:"https://image.tmdb.org/t/p/w500/hkC4yNDFmW1yQuQhtZydMeRuaAb.jpg"
+780:"https://image.tmdb.org/t/p/w780/hkC4yNDFmW1yQuQhtZydMeRuaAb.jpg"
+original:"https://image.tmdb.org/t/p/original/hkC4yNDFmW1yQuQhtZydMeRuaAb.jpg"
+ #}

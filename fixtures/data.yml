@@ -1,0 +1,16 @@
+App\Entity\User:
+  user_test:
+    email: test@mail.com
+    first_name: Test
+    last_name: Test
+    country: France
+    #password:test1234
+    password: \$2y\$13\$EqNT.yqSPawIISQNqWY6sOveFpPRotckV8vuBEdiJrGb7r3BsPkIO
+
+  user_{1..200}:
+    email (unique): <safeEmail()>
+    first_name: <firstName()>
+    last_name: <lastName()>
+    country: <country()>
+    #password: 123456789
+    password: \$2y\$13\$konNupt0b6zb2/5Sib1.xe2LwEA.J43e64wNr07JLOq4d35.Kkza6
