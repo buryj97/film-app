@@ -10,7 +10,7 @@ form.addEventListener("submit", function (event) {
   connectAPI();
 });
 
-// // API Connection
+// API Connection
 
 function connectAPI() {
   // Get User Services
@@ -123,16 +123,62 @@ function generateCards(responseData) {
         .addClass("card-header")
         .text(responseData.result[i].title);
 
+      const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/original/";
+      const cardImage = $("<img>")
+        .addClass("card-img")
+        .attr("src", BASE_IMAGE_URL + responseData.result[i].posterPath)
+        .attr("alt", "Poster for" + responseData.result[i].title);
+
       // create a card body element
       const cardBody = $("<div>")
         .addClass("card-body")
-        .text(responseData.result[i].overview);
+        .text(
+          responseData.result[i].overview +
+            responseData.result[i].year +
+            responseData.result[i].directors +
+            responseData.result[i].streamingInfo +
+            responseData.result[i].runtime
+        );
+      // const servicesList = [];
+      // const listItem = null;
+      // for (let j = 0; j < responseData.result[i].streamingInfo.length; i++) {
+      //   const servicesList = $("<ul>").addClass("streaming-services");
+      //   const listItem = $("<li>")
+      //     .text(`${serviceName}`)
+      //     .appendTo(servicesList);}
+
+      console.log(responseData.result[i].streamingInfo);
 
       // append the header and body elements to the card element
-      card.append(cardHeader, cardBody);
+      card.append(cardHeader, cardBody, cardImage);
 
       // append the card element to the container
       $("#card-container").append(card);
+
+      // {# photo
+      // title done
+      // overview done
+      // runtime done
+      // year done
+      // director
+      // streaming services  #}
+
+      // // Object for examples
+      // const film = {
+      //   title: "",
+      //   overview: "",
+      //   streamingInfo: ["netflix"],
+      //   cast: [],
+      //   year: 2019,
+      //   genres: [],
+      //   originalLanguage: "",
+      //   countries: ["us"],
+      //   directors: [],
+      //   runtime: 182,
+      //   youtubeTrailerVideoId: "",
+      //   youtubeTrailerVideoLink: "",
+      //   posterPath: "",
+      //   posterURLs: []; #}
 
       // assign the correct value to 'cursor'
       if (i === numResults - 1) {
@@ -149,17 +195,16 @@ function generateCards(responseData) {
       console.error("Error creating card:", err);
     }
   }
-
-  // create the pagination element
-
-  $(document).on("click", "#pagination", function () {
-    if (responseData.hasMore) {
-      cursor = responseData.nextCursor;
-      console.log(cursor);
-      // Call the connectAPI() function to load more results
-      connectAPI();
-    } else {
-      $("#pagination").addClass("hidden");
-    }
-  });
 }
+// create the pagination element
+
+$(document).on("click", "#pagination", function () {
+  if (responseData.hasMore) {
+    cursor = responseData.nextCursor;
+    console.log(cursor);
+    // Call the connectAPI() function to load more results
+    connectAPI();
+  } else {
+    $("#pagination").addClass("hidden");
+  }
+});

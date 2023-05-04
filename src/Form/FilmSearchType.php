@@ -23,7 +23,7 @@ class FilmSearchType extends AbstractType
             ['label' => 'Genre',
             'required' => false,
             'expanded' => false,
-            'multiple' => true,
+            'multiple' => false,
             'choices' => [
                 'Action' => '28',
                 'Adventure' => '12',
