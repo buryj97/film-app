@@ -5,8 +5,11 @@
 
 {% block body %}
 <style>
-  .fit-cover {
-    object-fit: cover;
+
+  .card-img-top{
+    max-width: 100%;
+    height: 400px;
+    object-fit: contain;
   }
 
   .hidden {
@@ -19,7 +22,7 @@
 {{ form(form, { 'attr' : { 'class': 'film_search' } }) }}
 <p>* Required fields</p>
 
-<div id="card-container">
+<div id="card-container" class="row row-cols-4 row-cols-md-4 g-4">
 </div>
 <button id="pagination" class="hidden">Load more</button>
 <p id="endResults" class="hidden">End of results</p>

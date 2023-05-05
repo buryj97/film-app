@@ -1,6 +1,7 @@
 let cursor = "";
 var responseData = [];
 var country = "";
+var keywords = "";
 
 // Submit form
 
@@ -8,6 +9,7 @@ const form = document.getElementsByClassName("film_search")[0];
 form.addEventListener("submit", function (event) {
   event.preventDefault();
   $(".card").remove();
+  cursor = "";
   connectAPI();
 });
 
@@ -46,7 +48,7 @@ function connectAPI() {
   }
 
   // Get User Keywords
-  var keywords = document.getElementById("film_search_keywords").value;
+  keywords = document.getElementById("film_search_keywords").value;
 
   // ----------------------------------------------------------------
 
@@ -100,7 +102,6 @@ function connectAPI() {
     if (xhr.status === 200) {
       // parse the response data
       responseData = JSON.parse(xhr.responseText);
-
       generateCards(responseData);
     } else {
       // handle errors
@@ -114,22 +115,39 @@ function connectAPI() {
 // ___________________________________________
 function generateCards(responseData) {
   const numResults = responseData.result.length;
+
+  if (numResults < 1) {
+    alert("No results for" + ' "' + keywords + '"');
+  }
   for (let i = 0; i < numResults; i++) {
     try {
+      // const column = $("<div>").addClass("col");
       // create a new card element
       const card = $("<div>").addClass("card");
+      // column.append(card);
 
       // create a card header element
-      const cardHeader = $("<div>")
-        .addClass("card-header")
+      const cardHeader = $("<h2>")
+        .addClass("card-title")
         .text(responseData.result[i].title);
 
-      const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w780/";
+      card.append(cardHeader);
+
+      const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/original/";
+
+      const netflixLogo = "9A1JSVmSxsyaBK4SUFsYVqbAYfW.jpg";
+      const primeLogo = "68MNrwlkpF7WnmNPXLah69CR5cb.jpg";
+      const disneyLogo = "dgPueyEdOwpQ10fjuhL2WYFQwQs.jpg";
+      const huluLogo = "giwM8XX4V2AQb9vsoN7yti82tKK.jpg";
+      const hboLogo = "aS2zvJWn9mwiCOeaaCkIh4wleZS.jpg";
+      const mubiLogo = "kXQQbZ6ZvTwojzMPivQF9sX0V4y.jpg";
+
       const cardImage = $("<img>")
-        .addClass("card-img")
+        .addClass("card-img-top")
         .attr("src", BASE_IMAGE_URL + responseData.result[i].posterPath)
         .attr("alt", "Poster for" + responseData.result[i].title);
 
+      card.append(cardImage);
       let streamingServices = [];
 
       for (const key in responseData.result[i].streamingInfo) {
@@ -141,20 +159,81 @@ function generateCards(responseData) {
           }
         }
       }
-      // create a card body element
-      const cardBody = $("<div>")
-        .addClass("card-body")
-        .text(
-          responseData.result[i].overview +
-            responseData.result[i].year +
-            responseData.result[i].directors +
-            responseData.result[i].runtime +
-            " minutes" +
-            streamingServices.join(", ")
-        );
 
+      var streamingLogos = $("<div>").addClass("streaming-logos");
+
+      streamingServices.forEach(function (service) {
+        var logoSrc;
+        switch (service) {
+          case "netflix":
+            logoSrc = netflixLogo;
+            break;
+          case "prime":
+            logoSrc = primeLogo;
+            break;
+          case "disney":
+            logoSrc = disneyLogo;
+            break;
+          case "hulu":
+            logoSrc = huluLogo;
+            break;
+          case "hbo":
+            logoSrc = hboLogo;
+            break;
+          case "mubi":
+            logoSrc = mubiLogo;
+            break;
+          default:
+            return;
+        }
+        var logo = $("<img>")
+          .addClass("card-logo img-thumbnail")
+          .attr("src", BASE_IMAGE_URL + logoSrc);
+        streamingLogos.append(logo);
+      });
+
+      // create a card body element
+      const cardBody = $("<div>").addClass("card-body");
+      const cardFooter = $("<div>").addClass("card-footer");
+
+      const cardYear = $("<small>")
+        .addClass("text-body-secondary")
+        .text(responseData.result[i].year);
+
+      const cardDirectors = $("<small>")
+        .addClass("text-body-secondary")
+        .text("Director: " + responseData.result[i].directors);
+
+      const cardRuntime = $("<small>")
+        .addClass("text-body-secondary")
+        .text(responseData.result[i].runtime + " minutes");
+
+      cardFooter.append(cardRuntime);
+
+      function limit(string = "", limit = 300) {
+        return string.substring(0, limit);
+      }
+
+      const cardOverview = $("<p>")
+        .addClass("card-text")
+        .text(responseData.result[i].overview);
+
+      if (responseData.result[i].overview.length > 300) {
+        cardOverview.text(limit(responseData.result[i].overview) + "...");
+      }
+
+      const cardButton = $("<a>").addClass("btn btn-primary").text("Read more");
+
+      cardBody.append(cardHeader, cardOverview);
       // append the header and body elements to the card element
-      card.append(cardHeader, cardBody, cardImage);
+      card.append(
+        cardBody,
+        cardButton,
+        cardYear,
+        cardDirectors,
+        streamingLogos,
+        cardFooter
+      );
 
       // append the card element to the container
       $("#card-container").append(card);
@@ -169,6 +248,7 @@ function generateCards(responseData) {
         $("#endResults").addClass("hidden");
       } else {
         $("#endResults").removeClass("hidden");
+        $("#pagination").addClass("hidden");
       }
     } catch (err) {
       console.error("Error creating card:", err);
@@ -183,7 +263,5 @@ $(document).on("click", "#pagination", function () {
     console.log(cursor);
     // Call the connectAPI() function to load more results
     connectAPI();
-  } else {
-    $("#pagination").addClass("hidden");
   }
 });
