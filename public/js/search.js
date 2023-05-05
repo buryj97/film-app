@@ -1,5 +1,6 @@
 let cursor = "";
 var responseData = [];
+var country = "";
 
 // Submit form
 
@@ -27,7 +28,7 @@ function connectAPI() {
 
   // Get User Country
   const countrySelection = document.getElementById("film_search_country");
-  const country = countrySelection.value;
+  country = countrySelection.value;
 
   // Get Original Language
   const languageSelection = document.getElementById("film_search_language");
@@ -123,12 +124,23 @@ function generateCards(responseData) {
         .addClass("card-header")
         .text(responseData.result[i].title);
 
-      const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/original/";
+      const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w780/";
       const cardImage = $("<img>")
         .addClass("card-img")
         .attr("src", BASE_IMAGE_URL + responseData.result[i].posterPath)
         .attr("alt", "Poster for" + responseData.result[i].title);
 
+      let streamingServices = [];
+
+      for (const key in responseData.result[i].streamingInfo) {
+        const streamingCountry = responseData.result[i].streamingInfo[key];
+        for (const serviceKey in streamingCountry) {
+          const serviceValue = streamingCountry[serviceKey];
+          if (serviceValue !== null) {
+            streamingServices.push(serviceKey);
+          }
+        }
+      }
       // create a card body element
       const cardBody = $("<div>")
         .addClass("card-body")
@@ -136,49 +148,16 @@ function generateCards(responseData) {
           responseData.result[i].overview +
             responseData.result[i].year +
             responseData.result[i].directors +
-            responseData.result[i].streamingInfo +
-            responseData.result[i].runtime
+            responseData.result[i].runtime +
+            " minutes" +
+            streamingServices.join(", ")
         );
-      // const servicesList = [];
-      // const listItem = null;
-      // for (let j = 0; j < responseData.result[i].streamingInfo.length; i++) {
-      //   const servicesList = $("<ul>").addClass("streaming-services");
-      //   const listItem = $("<li>")
-      //     .text(`${serviceName}`)
-      //     .appendTo(servicesList);}
-
-      console.log(responseData.result[i].streamingInfo);
 
       // append the header and body elements to the card element
       card.append(cardHeader, cardBody, cardImage);
 
       // append the card element to the container
       $("#card-container").append(card);
-
-      // {# photo
-      // title done
-      // overview done
-      // runtime done
-      // year done
-      // director
-      // streaming services  #}
-
-      // // Object for examples
-      // const film = {
-      //   title: "",
-      //   overview: "",
-      //   streamingInfo: ["netflix"],
-      //   cast: [],
-      //   year: 2019,
-      //   genres: [],
-      //   originalLanguage: "",
-      //   countries: ["us"],
-      //   directors: [],
-      //   runtime: 182,
-      //   youtubeTrailerVideoId: "",
-      //   youtubeTrailerVideoLink: "",
-      //   posterPath: "",
-      //   posterURLs: []; #}
 
       // assign the correct value to 'cursor'
       if (i === numResults - 1) {

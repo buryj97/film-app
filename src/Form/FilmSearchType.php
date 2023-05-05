@@ -49,14 +49,16 @@ class FilmSearchType extends AbstractType
             ]
             ])
             ->add('country', CountryType::class,
-            ['label' => 'Your Country',
-            'required' => false])
+            ['label' => 'Your Country *',
+            'required' => true,
+            'preferred_choices' => ['FR', 'US', 'UK', 'IE', 'DE', 'CA', 'ES'] 
+            ])
             ->add('language', LanguageType::class,[
             'required' => false
             ])
             ->add('streamingServices', ChoiceType::class,
-            ['label' => 'Your Subscriptions (4 maximum)',
-            'required' => false,
+            ['label' => 'Your Subscriptions (4 maximum) *',
+            'required' => true,
             'expanded' => true,
             'multiple' => true,
             'choices' => [
@@ -68,7 +70,10 @@ class FilmSearchType extends AbstractType
                 'Mubi' => 'mubi'
             ]
             ])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class,
+            [
+                'label' => 'Search'
+            ])
         ;
     }
 }
