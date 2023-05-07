@@ -18,6 +18,7 @@ class AccountController extends AbstractController
         $streamingServices = $repository->findAll();
 
         return $this->render('account/index.html.twig', [
+            // 'user' => $user,
             'streamingServices' => $streamingServices
         ]);
     }

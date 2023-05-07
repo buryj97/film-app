@@ -301,6 +301,9 @@
             "config/packages/messenger.yaml"
         ]
     },
+    "symfonycasts/verify-email-bundle": {
+        "version": "v1.13.0"
+    },
     "theofidry/alice-data-fixtures": {
         "version": "1.6",
         "recipe": {

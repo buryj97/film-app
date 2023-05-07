@@ -10,6 +10,11 @@ security:
         class: App\Entity\User
         property: email
   firewalls:
+    secured_area:
+      # ...
+      form_login:
+        # ...
+        enable_csrf: true
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
@@ -19,10 +24,11 @@ security:
       form_login:
         login_path: app_login
         check_path: app_login
-        default_target_path: app_account
+        # default_target_path: app_account
       logout:
         path: app_logout
         target: /login
+
       custom_authenticator: App\Security\UserAuthenticator
       entry_point: form_login
 

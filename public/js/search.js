@@ -117,7 +117,14 @@ function generateCards(responseData) {
   const numResults = responseData.result.length;
 
   if (numResults < 1) {
-    alert("No results for" + ' "' + keywords + '"');
+    alert(
+      "No results for" +
+        ' "' +
+        keywords +
+        '".' +
+        "\n" +
+        "Try a different keyword and assure that your selected streaming services are available in your country."
+    );
   }
   for (let i = 0; i < numResults; i++) {
     try {
@@ -224,14 +231,22 @@ function generateCards(responseData) {
 
       const cardButton = $("<a>").addClass("btn btn-primary").text("Read more");
 
+      const cardFavorite = $("<i>").addClass("bi bi-heart");
+
+      cardFavorite.on("click", function () {
+        toggleClass("bi-heart");
+        toggleClass("bi-heart-fill");
+      });
+
       cardBody.append(cardHeader, cardOverview);
       // append the header and body elements to the card element
       card.append(
         cardBody,
-        cardButton,
         cardYear,
         cardDirectors,
         streamingLogos,
+        cardButton,
+        cardFavorite,
         cardFooter
       );
 
@@ -260,7 +275,7 @@ function generateCards(responseData) {
 $(document).on("click", "#pagination", function () {
   if (responseData.hasMore) {
     cursor = responseData.nextCursor;
-    console.log(cursor);
+
     // Call the connectAPI() function to load more results
     connectAPI();
   }
