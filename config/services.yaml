@@ -7,6 +7,10 @@ parameters:
 
 services:
   Symfony\Component\Security\Http\Logout\LogoutUrlGenerator: "@security.logout_url_generator"
+  App\Controller\ApiResponseController:
+    autowire: true
+    arguments:
+      $entityManager: "@doctrine.orm.default_entity_manager"
   #   tags:
   #     - name: kernel.event_listener
   #       event: kernel.request

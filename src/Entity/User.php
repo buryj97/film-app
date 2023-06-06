@@ -40,8 +40,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::ARRAY, nullable: true)]
     private array $streamingServices = [];
 
-    #[ORM\Column(type: Types::OBJECT, nullable: true)]
-    private ?object $savedFilms = null;
+    #[ORM\Column(type: Types::ARRAY, nullable: true)]
+    private ?array $savedFilms = null;
 
     public function getId(): ?int
     {
@@ -161,12 +161,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getSavedFilms(): ?object
+    public function getSavedFilms(): ?array
     {
         return $this->savedFilms;
     }
 
-    public function setSavedFilms(?object $savedFilms): self
+    public function setSavedFilms(?array $savedFilms): self
     {
         $this->savedFilms = $savedFilms;
 

@@ -236,6 +236,33 @@ function generateCards(responseData) {
       cardFavorite.on("click", function () {
         $(this).toggleClass("bi-heart");
         $(this).toggleClass("bi-heart-fill");
+
+        console.log(responseData.result[i]);
+        const data = {
+          title: responseData.result[i].title,
+          overview: responseData.result[i].overview,
+          runtime: responseData.result[i].runtime,
+          directors: responseData.result[i].directors,
+          year: responseData.result[i].year,
+          streamingServices: responseData.result[i].streamingServices,
+          posterPath: responseData.result[i].posterPath,
+        };
+
+        // Send the data using AJAX
+        $.ajax({
+          url: "/update-saved-films",
+          method: "POST",
+          data: JSON.stringify(data),
+          contentType: "application/json",
+          success: function (response) {
+            console.log("Data sent successfully");
+            // Handle the response if needed
+          },
+          error: function (error) {
+            console.error("Error sending data:", error);
+            // Handle the error appropriately
+          },
+        });
       });
 
       cardBody.append(cardHeader, cardOverview);
@@ -269,6 +296,20 @@ function generateCards(responseData) {
       console.error("Error creating card:", err);
     }
   }
+
+  // var favoriteElements = document.getElementsByClassName("bi-heart");
+
+  // for (var i = 0; i < favoriteElements.length; i++) {
+  //   favoriteElements[i].addEventListener("click", showFavorite);
+  // }
+
+  // function showFavorite(responseData) {
+  //   // Access the specific part of the array based on the index
+  //   // const specificData = parsedResponse[clickedIndex];
+  //   // console.log(specificData);
+  //   // const query = `INSERT INTO user (saved_films) VALUES (?)`;
+  //   // const values = [specificData];
+  // }
 }
 // create the pagination element
 
