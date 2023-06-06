@@ -8,41 +8,57 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AccountController extends AbstractController
 {
     #[Route('/account', name: 'app_account')]
     public function index(UserRepository $repository): Response
     {
-        // $user = $repository->getUser();
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $user = $this->getUser();
         $streamingServices = $repository->findAll();
 
         return $this->render('account/index.html.twig', [
-            // 'user' => $user,
+            'user' => $user,
             'streamingServices' => $streamingServices
         ]);
     }
-     #[Route('/account', name: 'app_modify_account')]
-    public function profil(Request $request, UserRepository $repository): Response
+     #[Route('/account/modify', name: 'app_account_modify')]
+    public function modifyProfile(Request $request, UserPasswordHasherInterface $passwordHasher, UserRepository $repository): Response
     {
-        // Je créé le formulaire avec l'utilisateur connécté
-        $form = $this->createForm(ProfilType::class, $this->getUser());
+        /** @var User|null $user */
+        $user = $this->getUser(); // Assuming you have a user object
 
-        // Je remplie le formulaire avec les données saisie par l'utilisateur
-        $form->handleRequest($request);
+        if ($request->isMethod('POST')) {
 
-        // Je test si le form est envoyé et est valide
-        if ($form->isSubmitted() && $form->isValid()) {
-            // J'enregistre l'utilisateur dans le dépot des users
-            $repository->save($this->getUser(), true);
+        $firstName = $request->request->get('firstName');
+        $user->setFirstName($firstName);
 
-            // @TODO Je redirige vers la page d'accueil
-            return new Response('Ok');
-        }
+        $lastName = $request->request->get('lastName');
+        $user->setLastName($lastName);
 
-        // J'affiche le formulaire d'édition de profil
-        return $this->render('account/index.html.twig', [
-            'form' => $form->createView(),
+        $email = $request->request->get('email');
+        $user->setEmail($email);
+
+        $country = $request->request->get('country');
+        $user->setCountry($country);
+
+        $streamingServices = $request->request->get('streamingServices', []);
+        $user->setStreamingServices($streamingServices);
+
+        $password = $request->request->get('password');
+        $cryptedPassword = $passwordHasher->hashPassword($user, $password);
+        $user->setPassword($cryptedPassword);
+
+        $repository->save($user, true);
+
+        return $this->redirectToRoute('app_account');
+    }
+
+        return $this->render('account/modifyAccount.html.twig', [
         ]);
+        
     }
 }

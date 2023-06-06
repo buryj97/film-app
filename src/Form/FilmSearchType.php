@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Repository\UserRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -14,7 +15,7 @@ class FilmSearchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
+            $builder
             ->add('keywords', TextType::class, [
                 'label' => 'Keywords',
                 'required' => false
@@ -56,6 +57,7 @@ class FilmSearchType extends AbstractType
             ->add('language', LanguageType::class,[
             'required' => false
             ])
+    
             ->add('streamingServices', ChoiceType::class,
             ['label' => 'Your Subscriptions (4 maximum) *',
             'required' => true,
@@ -70,6 +72,7 @@ class FilmSearchType extends AbstractType
                 'Mubi' => 'mubi'
             ]
             ])
+        
             ->add('submit', SubmitType::class,
             [
                 'label' => 'Search'

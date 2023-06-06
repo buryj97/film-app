@@ -5,4 +5,8 @@ controllers:
   type: attribute
 app_logout:
   path: /logout
+  controller: App\Controller\SecurityController::logout
   methods: GET
+index:
+  path: /
+  controller: App\Controller\SearchController::search

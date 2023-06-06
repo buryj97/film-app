@@ -231,11 +231,11 @@ function generateCards(responseData) {
 
       const cardButton = $("<a>").addClass("btn btn-primary").text("Read more");
 
-      const cardFavorite = $("<i>").addClass("bi bi-heart");
+      const cardFavorite = $("<a>").addClass("bi bi-heart");
 
       cardFavorite.on("click", function () {
-        toggleClass("bi-heart");
-        toggleClass("bi-heart-fill");
+        $(this).toggleClass("bi-heart");
+        $(this).toggleClass("bi-heart-fill");
       });
 
       cardBody.append(cardHeader, cardOverview);

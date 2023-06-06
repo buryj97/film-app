@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use LogicException;
 use App\Form\SignUpType;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,10 +33,4 @@ class UserController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-    #[Route(path: '/logout', name: 'app_logout')]
-    public function logout(): void
-    {
-        throw new LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
-    }
-
 }
