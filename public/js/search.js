@@ -194,14 +194,14 @@ function generateCards(responseData) {
             return;
         }
         var logo = $("<img>")
-          .addClass("card-logo img-thumbnail")
+          .addClass("card-logo rounded-circle")
           .attr("src", BASE_IMAGE_URL + logoSrc);
         streamingLogos.append(logo);
       });
 
       // create a card body element
       const cardBody = $("<div>").addClass("card-body");
-      const cardFooter = $("<div>").addClass("card-footer");
+      const cardFooter = $("<div>").addClass("card-footer mt-2");
 
       const cardYear = $("<small>")
         .addClass("text-body-secondary")
@@ -229,30 +229,40 @@ function generateCards(responseData) {
         cardOverview.text(limit(responseData.result[i].overview) + "...");
       }
 
-      const cardButton = $("<a>").addClass("btn btn-primary").text("Read more");
+      const buttonDiv = $("<div>").addClass(
+        "container d-flex align-items-center justify-content-evenly mx-auto col-12"
+      );
 
-      const cardFavorite = $("<a>").addClass("bi bi-heart");
+      const cardButton = $("<a>")
+        .addClass("btn btn-primary col-10")
+        .text("Read more");
+
+      const cardFavorite = $("<a>").addClass("bi bi-heart col-1");
+
+      buttonDiv.append(cardButton, cardFavorite);
 
       cardFavorite.on("click", function () {
         $(this).toggleClass("bi-heart");
         $(this).toggleClass("bi-heart-fill");
 
         console.log(responseData.result[i]);
-        const data = {
-          title: responseData.result[i].title,
-          overview: responseData.result[i].overview,
-          runtime: responseData.result[i].runtime,
-          directors: responseData.result[i].directors,
-          year: responseData.result[i].year,
-          streamingServices: responseData.result[i].streamingServices,
-          posterPath: responseData.result[i].posterPath,
-        };
+
+        // const data = [
+        //   responseData.result[i].title,
+        //   responseData.result[i].overview,
+        //   responseData.result[i].runtime,
+        //   responseData.result[i].directors,
+        //   responseData.result[i].year,
+        //   responseData.result[i].streamingServices,
+        //   responseData.result[i].posterPath,
+        // ];
+        // console.log(data);
 
         // Send the data using AJAX
         $.ajax({
           url: "/update-saved-films",
           method: "POST",
-          data: JSON.stringify(data),
+          data: JSON.stringify(responseData.result[i]),
           contentType: "application/json",
           success: function (response) {
             console.log("Data sent successfully");
@@ -272,8 +282,9 @@ function generateCards(responseData) {
         cardYear,
         cardDirectors,
         streamingLogos,
-        cardButton,
-        cardFavorite,
+        buttonDiv,
+        // cardButton,
+        // cardFavorite,
         cardFooter
       );
 

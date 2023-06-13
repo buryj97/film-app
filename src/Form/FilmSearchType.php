@@ -75,7 +75,8 @@ class FilmSearchType extends AbstractType
         
             ->add('submit', SubmitType::class,
             [
-                'label' => 'Search'
+                'label' => 'Search',
+                'attr'=> ['class' => 'btn btn-primary col-12 mt-3']
             ])
         ;
     }

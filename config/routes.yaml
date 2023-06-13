@@ -10,3 +10,7 @@ app_logout:
 index:
   path: /
   controller: App\Controller\SearchController::search
+update_saved_films:
+  path: /update-saved-films
+  defaults:
+    _controller: App\Controller\ApiResponseController::updatedSavedFilms

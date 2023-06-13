@@ -17,26 +17,70 @@
   }
 
   .bi{
-  font-size: "24px";
-  color: "red";
-  cursor: "pointer";
+  font-size: 30px;
+  color: red;
+  cursor: pointer;
   z-index: 1;
   }
 
+  .rounded-circle{
+    width: 15%;
+    margin: 5px 5px 5px 0;
+  }
 </style>
 
 
-<h1>Find a Film</h1>
-{{ form(form, { 'attr' : { 'class': 'film_search' } }) }}
-<p>* Required fields</p>
+<h1 class="text-center">Find a Film</h1>
+{{ form(form, { 'attr' : { 'class': 'film_search mx-auto col-10 d-flex flex-column' } }) }}
+{# {{ form_start(form, { 'attr' : { 'class': 'film_search'}}) }}
 
-<div id="card-container" class="row row-cols-4 row-cols-md-4 g-4">
+    <div class="row mx-auto col-10">
+      <div class="row">
+        <div class="col film_search">
+            {{ form_row(form.keywords) }}
+        </div>
+        <div class="col film_search" id="some-custom-id">
+            {{ form_row(form.genre) }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col film_search" id="some-custom-id">
+            {{ form_row(form.country) }}
+        </div>
+        <div class="col film_search" id="some-custom-id">
+            {{ form_row(form.language) }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col mx-auto">
+        <label for="streamingServices">Streaming Services *</label>
+        <div class="form-check form-check-inline film_search">
+          {% for choice in form.streamingServices %}
+              <label class="form-check-label mt-3 px-3">
+                  {{ form_widget(choice) }}
+              </label>
+          {% endfor %}
+      </div>
+    </div>
+        <p class="small mt-3">* Required fields</p>
+
+        {{ form_widget(form.submit, {'attr' : {'class': 'btn btn-primary col-5 mt-3 mx-auto'}})}}
+    </div>
+{{ form_end(form) }} #}
+
+
+
+<div id="card-container" class="row row-cols-4 row-cols-md-4 g-4 col-11 mx-auto">
 </div>
-<button id="pagination" class="hidden">Load more</button>
+<div class="text-center">
+<button id="pagination" class="hidden btn btn-secondary my-4">Load more</button>
+</div>
 <p id="endResults" class="hidden">End of results</p>
 
 
-<p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+<p class="text-center small mt-3">This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
 
 {% block javascripts %}
 <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>

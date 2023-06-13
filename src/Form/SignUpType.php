@@ -35,11 +35,11 @@ class SignUpType extends AbstractType
 
             ->add('country', CountryType::class,
             ['label' => 'Your Country',
-            'required' => false])
+            'required' => true])
 
             ->add('streamingServices', ChoiceType::class,
             ['label' => 'Your Subscriptions',
-            'required' => false,
+            'required' => true,
             'expanded' => true,
             'multiple' => true,
             'choices' => [
