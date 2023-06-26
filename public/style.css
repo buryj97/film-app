@@ -1,0 +1,42 @@
+:root {
+  --pink: #ff5757;
+  --green-light: #e9fae3;
+  --green-dark: #dee8d5;
+  --brown: #d5c7bc;
+}
+
+.card-img-top {
+  max-width: 100%;
+  height: 400px;
+  object-fit: contain;
+}
+
+.hidden {
+  display: none;
+}
+
+.bi {
+  font-size: 30px;
+  color: red;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.rounded-circle {
+  width: 15%;
+  margin: 5px 5px 5px 0;
+}
+
+.logo {
+  height: 150px;
+  width: 200px;
+  object-fit: contain;
+}
+
+.bi-person-fill {
+  font-size: 24px;
+}
+
+.navbar-expand-xxl {
+  justify-content: space-between;
+}

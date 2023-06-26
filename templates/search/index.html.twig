@@ -4,31 +4,6 @@
 
 
 {% block body %}
-<style>
-
-  .card-img-top{
-    max-width: 100%;
-    height: 400px;
-    object-fit: contain;
-  }
-
-  .hidden {
-    display: none;
-  }
-
-  .bi{
-  font-size: 30px;
-  color: red;
-  cursor: pointer;
-  z-index: 1;
-  }
-
-  .rounded-circle{
-    width: 15%;
-    margin: 5px 5px 5px 0;
-  }
-</style>
-
 
 <h1 class="text-center">Find a Film</h1>
 {{ form(form, { 'attr' : { 'class': 'film_search mx-auto col-10 d-flex flex-column' } }) }}

@@ -1,18 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccountController!{% endblock %}
+{% block title %}Your Profile{% endblock %}
 
 {% block body %}
-<a href="{{ path('app_account_modify')}}" class="btn btn-primary">Edit Profile</a>
+<h1 class="text-center">Your Profile</h1>
 
-<h2>{{ app.user.firstName }} {{ app.user.lastName }}</h1>
-<h2>{{ app.user.email }}</h2>
-<h2>{{ app.user.country }}</h2>
+<div class="col-md-4 mx-auto mt-5">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Full Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{ app.user.firstName }} {{ app.user.lastName }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{ app.user.email }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Country</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{ app.user.country }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Streaming Services</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {% for streamingServices in app.user.streamingServices %}
+                        {{ streamingServices }} <br>
+                    {% endfor %}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <a class="btn btn-primary" href="{{ path('app_account_modify')}}">Edit Profile</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-<h2>Streaming Services</h2>
-
-{% for streamingServices in app.user.streamingServices %}
-<li>{{ streamingServices }}</li>
-
-{% endfor %}
 {% endblock %}

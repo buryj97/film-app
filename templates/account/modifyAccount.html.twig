@@ -1,32 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccountController!{% endblock %}
+{% block title %}Modify Profile{% endblock %}
 
 {% block body %}
-{# <a href="{{ path('app_account_modify')}}" class="btn btn-primary">Edit Profile</a>
 
-<h2>{{ app.user.firstName }} {{ app.user.lastName }}</h1>
-    <h2>{{ app.user.email }}</h2>
-    <h2>{{ app.user.country }}</h2>
+    <h1 class="text-center"> Modify Your Profile</h1>
 
-    <h2>Streaming Services</h2>
+    <form class="col-10 mx-auto" method="POST" action="{{ path('app_account_modify') }}">
+        <label class="form-label" for="firstName">First Name: </label>
+        <input class="form-control" type="text" name="firstName" id="firstName" value="{{ app.user.firstName }}">
+    
+        <label class="form-label" for="lastName">Last Name: </label>
+        <input class="form-control" type="text" name="lastName" id="lastName" value="{{ app.user.lastName }}">
 
-    {% for streamingServices in app.user.streamingServices %}
-    <li>{{ streamingServices }}</li>
+        <label class="form-label" for="email">Email:</label>
+        <input class="form-control" type="email" name="email" id="email" value="{{ app.user.email }}"></input>
 
-    {% endfor %} #}
-
-    <form method="POST" action="{{ path('app_account_modify') }}">
-        <label for="firstName">First Name: </label>
-        <input type="text" name="firstName" id="firstName" value="{{ app.user.firstName }}">
-
-        <label for="lastName">Last Name: </label>
-        <input type="text" name="lastName" id="lastName" value="{{ app.user.lastName }}">
-
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" value="{{ app.user.email }}"></input>
-
-        <label for="country">Country:</label>
+        <label class="form-label" for="country">Country:</label>
         <select class="form-select" id="country" name="country">
             <option disabled selected>{{ app.user.country }}</option>
             <option value="AF">Afghanistan</option>
@@ -283,24 +273,36 @@
             <option value="ZW">Zimbabwe</option>
         </select>
 
-        <fieldset>
-            <legend>Streaming Services:</legend>
+        <fieldset class="my-3">
+            <legend class="h4">Streaming Services:</legend>
 
             {% for service in ['Netflix', 'Hulu', 'Disney Plus', 'Amazon Prime Video', 'HBO Max', 'Mubi'] %}
                 
             {% set isChecked = service in app.user.streamingServices %}
 
-                <div>
-                    <input type="checkbox" id="{{ service|lower }}" name="{{ service|lower }}" {% if isChecked %}checked{% endif %}>
-                    <label for="{{ service|lower }}">{{ service }}</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="{{ service|lower }}" name="{{ service|lower }}" {% if isChecked %}checked{% endif %}>
+                    <label class="form-check-label" for="{{ service|lower }}">{{ service }}</label>
                 </div>
             {% endfor %}
         </fieldset>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password">
+        <div class="row g-3 align-items-center">
+            <div class="col-auto">
+                <label for="inputPassword6" class="col-form-label">New Password:</label>
+            </div>
+            <div class="col-auto">
+                <input type="password" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+            </div>
+            {# <div class="col-auto">
+                <span id="passwordHelpInline" class="form-text">
+                Must be 8-20 characters long.
+                </span>
+            </div> #}
+        </div>
 
-        <button type="submit">Submit</button>
+
+        <button class="btn btn-primary col-12 mt-3"type="submit">Submit</button>
     </form>
 
 
