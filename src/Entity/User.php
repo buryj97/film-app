@@ -37,11 +37,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $country = null;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
+    #[ORM\Column(type: Types::ARRAY, nullable: false)]
     private array $streamingServices = [];
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    private ?array $savedFilms = null;
+    #[ORM\Column(type: Types::JSON)]
+    private ?array $savedFilms = [];
+
 
     public function getId(): ?int
     {
@@ -161,12 +162,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getSavedFilms(): ?array
+    public function getSavedFilms(): array
     {
-        return $this->savedFilms;
+        return $this->savedFilms ?? [];
     }
 
-    public function setSavedFilms(?array $savedFilms): self
+    public function setSavedFilms(?array $savedFilms): static
     {
         $this->savedFilms = $savedFilms;
 

@@ -12,5 +12,16 @@ index:
   controller: App\Controller\SearchController::search
 update_saved_films:
   path: /update-saved-films
+  methods: [POST]
   defaults:
-    _controller: App\Controller\ApiResponseController::updatedSavedFilms
+    _controller: App\Controller\ApiResponseController::updateSavedFilms
+get_saved_films:
+  path: /get-saved-films
+  methods: [GET]
+  defaults:
+    _controller: App\Controller\ApiResponseController::getSavedFilms
+remove_film:
+  path: /remove-film
+  methods: [GET|POST]
+  defaults:
+    _controller: App\Controller\AccountController::removeFilm

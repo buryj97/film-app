@@ -5,53 +5,113 @@
 {% block body %}
 <h1 class="text-center">Your Profile</h1>
 
+{# profile card #}
 <div class="col-md-4 mx-auto mt-5">
-              <div class="card mb-3">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Full Name</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      {{ app.user.firstName }} {{ app.user.lastName }}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Email</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      {{ app.user.email }}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Country</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      {{ app.user.country }}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Streaming Services</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                    {% for streamingServices in app.user.streamingServices %}
-                        {{ streamingServices }} <br>
-                    {% endfor %}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <a class="btn btn-primary" href="{{ path('app_account_modify')}}">Edit Profile</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-3">
+          <h6 class="mb-0">Full Name</h6>
+        </div>
+        <div class="col-sm-9 text-secondary">
+          {{ app.user.firstName }} {{ app.user.lastName }}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <h6 class="mb-0">Email</h6>
+        </div>
+        <div class="col-sm-9 text-secondary">
+          {{ app.user.email }}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <h6 class="mb-0">Country</h6>
+        </div>
+        <div class="col-sm-9 text-secondary">
+          {{ app.user.country }}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <h6 class="mb-0">Streaming Services</h6>
+        </div>
+        <div class="col-sm-9 text-secondary">
+          {% for streamingServices in app.user.streamingServices %}
+          {{ streamingServices }} <br>
+          {% endfor %}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <h6 class="mb-0">Password</h6>
+        </div>
+        <div class="col-sm-9 text-secondary">
+          <p>********</p>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-12">
+          <a class="btn btn-primary" href="{{ path('app_account_modify')}}">Edit Profile</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<hr class="mt-4 mb-4 w-75 mx-auto">
+<h2 class="h1 text-center">Watchlist</h2>
+
+{# display text if there are no films in the watchlist #}
+{% if app.user.savedFilms is empty %}
+  <p class="text-center mt-3">Your watchlist is empty</p>
+{% else %}
+
+{# card container to display all of the saved films #}
+<div id="card-container" class="row row-cols-4 row-cols-md-4 g-4 col-11 mx-auto">
+
+  {% for savedFilms in app.user.savedFilms %}
+  <div class="card">
+    <img class="card-img-top" src="{{savedFilms.posterPath}}" alt="Poster for {{ savedFilms.title }}">
+
+    <div class="card-body">
+      <h2 class="card-title">{{ savedFilms.title }}</h2>
+
+      {# Limit text length to regularize card size #}
+      <p class="card-text">{{ savedFilms.overview|slice(0, 300) }}
+        {% if savedFilms.overview|length > 300 %}...{% endif %}</p>
+    </div>
+
+    <small class="text-body-secondary">{{savedFilms.year}}</small>
+    {# use join to display each element of the array in one string #}
+    <small class="text-body-secondary">Director: {{ savedFilms.directors|join(', ') }}</small>
+
+    <div class="streaming-logos">
+    {# cycle through the streaming services array #}
+  {% for index, streamingService in savedFilms.streamingServices %}
+    {# include only services from the search/signup form #}
+    {% if streamingService == 'netflix' or streamingService == 'disney' or streamingService == 'prime' or streamingService == 'hulu' or streamingService == 'hbo' or streamingService == 'mubi' %}
+    {# display logo associated with each service #}
+    <img class="card-logo rounded-circle" src="{{ savedFilms.streamingLogos[index] }}" alt="{{ streamingService }} Logo">
+    {% endif %}
+  {% endfor %}
+  </div>
+
+  <div class="container d-flex align-items-center justify-content-evenly mx-auto col-12 mb-3">
+    <a class="btn btn-primary col-10">Read more</a>
+    <a class="bi bi-heart-fill col-1" href="{{ path('remove_film', {'title': savedFilms.title})}}"></a>
+  </div>
+  <div class="card-footer mt-2">
+    <small class="text-body-secondary">{{savedFilms.runtime}} minutes</small>
+  </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
 {% endblock %}

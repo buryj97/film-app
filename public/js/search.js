@@ -1,7 +1,9 @@
+// Initialize variables
 let cursor = "";
 var responseData = [];
 var country = "";
 var keywords = "";
+let favData = {};
 
 // Submit form
 
@@ -12,6 +14,8 @@ form.addEventListener("submit", function (event) {
   cursor = "";
   connectAPI();
 });
+
+// ----------------------------------------------
 
 // API Connection
 
@@ -73,6 +77,7 @@ function connectAPI() {
     "&genre=" +
     encodeURIComponent(selectedOptions);
 
+  // create parameter necessary for pagination
   if (cursor !== "") {
     params += "&cursor=" + encodeURIComponent(cursor);
   }
@@ -102,6 +107,7 @@ function connectAPI() {
     if (xhr.status === 200) {
       // parse the response data
       responseData = JSON.parse(xhr.responseText);
+      // pass response data to the function to create visual display
       generateCards(responseData);
     } else {
       // handle errors
@@ -116,6 +122,7 @@ function connectAPI() {
 function generateCards(responseData) {
   const numResults = responseData.result.length;
 
+  // Tell user if there are no results
   if (numResults < 1) {
     alert(
       "No results for" +
@@ -126,12 +133,11 @@ function generateCards(responseData) {
         "Try a different keyword and assure that your selected streaming services are available in your country."
     );
   }
+
   for (let i = 0; i < numResults; i++) {
     try {
-      // const column = $("<div>").addClass("col");
       // create a new card element
       const card = $("<div>").addClass("card");
-      // column.append(card);
 
       // create a card header element
       const cardHeader = $("<h2>")
@@ -140,6 +146,7 @@ function generateCards(responseData) {
 
       card.append(cardHeader);
 
+      // establish urls for each necessary image (all hosted at the base url)
       const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/original/";
 
       const netflixLogo = "9A1JSVmSxsyaBK4SUFsYVqbAYfW.jpg";
@@ -155,7 +162,10 @@ function generateCards(responseData) {
         .attr("alt", "Poster for" + responseData.result[i].title);
 
       card.append(cardImage);
+
       let streamingServices = [];
+
+      // filter through reponse object to determine services' availability in selected country
 
       for (const key in responseData.result[i].streamingInfo) {
         const streamingCountry = responseData.result[i].streamingInfo[key];
@@ -167,36 +177,38 @@ function generateCards(responseData) {
         }
       }
 
-      var streamingLogos = $("<div>").addClass("streaming-logos");
-
-      streamingServices.forEach(function (service) {
-        var logoSrc;
+      // associate each service with its logo
+      function getLogoSrc(service) {
         switch (service) {
           case "netflix":
-            logoSrc = netflixLogo;
-            break;
+            return netflixLogo;
           case "prime":
-            logoSrc = primeLogo;
-            break;
+            return primeLogo;
           case "disney":
-            logoSrc = disneyLogo;
-            break;
+            return disneyLogo;
           case "hulu":
-            logoSrc = huluLogo;
-            break;
+            return huluLogo;
           case "hbo":
-            logoSrc = hboLogo;
-            break;
+            return hboLogo;
           case "mubi":
-            logoSrc = mubiLogo;
-            break;
+            return mubiLogo;
           default:
-            return;
+            return "";
         }
-        var logo = $("<img>")
-          .addClass("card-logo rounded-circle")
-          .attr("src", BASE_IMAGE_URL + logoSrc);
-        streamingLogos.append(logo);
+      }
+
+      var logoSrc;
+      var streamingLogos = $("<div>").addClass("streaming-logos");
+
+      // display logos for each service that exists in the response data
+      streamingServices.forEach(function (service) {
+        logoSrc = getLogoSrc(service);
+        if (logoSrc) {
+          var logo = $("<img>")
+            .addClass("card-logo rounded-circle")
+            .attr("src", BASE_IMAGE_URL + logoSrc);
+          streamingLogos.append(logo);
+        }
       });
 
       // create a card body element
@@ -217,6 +229,7 @@ function generateCards(responseData) {
 
       cardFooter.append(cardRuntime);
 
+      // shorten text length to regularize card size
       function limit(string = "", limit = 300) {
         return string.substring(0, limit);
       }
@@ -241,38 +254,60 @@ function generateCards(responseData) {
 
       buttonDiv.append(cardButton, cardFavorite);
 
+      function checkSavedFilms(savedFilms, cardFavorite) {
+        savedFilms.forEach((savedFilm) => {
+          if (responseData.result[i].title == savedFilm.title) {
+            cardFavorite.toggleClass("bi-heart bi-heart-fill");
+            return; // Exit the loop if a match is found
+          }
+        });
+      }
+
+      fetch("get-saved-films", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((savedFilms) => {
+          // Inside the loop:
+          checkSavedFilms(savedFilms, cardFavorite);
+        })
+        .catch((error) => {
+          // Handle any errors
+        });
+
+      // create variable to pass data to SQL server when a user saves a film to their watchlist
       cardFavorite.on("click", function () {
         $(this).toggleClass("bi-heart");
         $(this).toggleClass("bi-heart-fill");
+        favData.title = responseData.result[i].title;
+        favData.overview = responseData.result[i].overview;
+        favData.posterPath = BASE_IMAGE_URL + responseData.result[i].posterPath;
+        favData.directors = responseData.result[i].directors;
+        favData.runtime = responseData.result[i].runtime;
+        favData.year = responseData.result[i].year;
+        favData.streamingServices = streamingServices;
+        favData.streamingLogos = streamingServices.map(
+          (service) => BASE_IMAGE_URL + getLogoSrc(service)
+        );
 
-        console.log(responseData.result[i]);
+        console.log(favData);
 
-        // const data = [
-        //   responseData.result[i].title,
-        //   responseData.result[i].overview,
-        //   responseData.result[i].runtime,
-        //   responseData.result[i].directors,
-        //   responseData.result[i].year,
-        //   responseData.result[i].streamingServices,
-        //   responseData.result[i].posterPath,
-        // ];
-        // console.log(data);
-
-        // Send the data using AJAX
-        $.ajax({
-          url: "/update-saved-films",
+        fetch("update-saved-films", {
           method: "POST",
-          data: JSON.stringify(responseData.result[i]),
-          contentType: "application/json",
-          success: function (response) {
-            console.log("Data sent successfully");
-            // Handle the response if needed
+          body: JSON.stringify(favData), // Pass the retrieved JSON data
+          headers: {
+            "Content-Type": "application/json",
           },
-          error: function (error) {
-            console.error("Error sending data:", error);
-            // Handle the error appropriately
-          },
-        });
+        })
+          .then((response) => {
+            // Handle the Symfony response
+          })
+          .catch((error) => {
+            // Handle any errors
+          });
       });
 
       cardBody.append(cardHeader, cardOverview);
@@ -283,8 +318,6 @@ function generateCards(responseData) {
         cardDirectors,
         streamingLogos,
         buttonDiv,
-        // cardButton,
-        // cardFavorite,
         cardFooter
       );
 
@@ -307,21 +340,8 @@ function generateCards(responseData) {
       console.error("Error creating card:", err);
     }
   }
-
-  // var favoriteElements = document.getElementsByClassName("bi-heart");
-
-  // for (var i = 0; i < favoriteElements.length; i++) {
-  //   favoriteElements[i].addEventListener("click", showFavorite);
-  // }
-
-  // function showFavorite(responseData) {
-  //   // Access the specific part of the array based on the index
-  //   // const specificData = parsedResponse[clickedIndex];
-  //   // console.log(specificData);
-  //   // const query = `INSERT INTO user (saved_films) VALUES (?)`;
-  //   // const values = [specificData];
-  // }
 }
+
 // create the pagination element
 
 $(document).on("click", "#pagination", function () {

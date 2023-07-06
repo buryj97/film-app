@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Error;
+use App\Entity\User;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -11,62 +13,82 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ApiResponseController extends AbstractController
 {
-    /**
-     * @Route("/update-saved-films", name="update_saved_films", methods={"POST"})
-     */
-    public function updateSavedFilms(Request $request)
-    {
-        // Get the data from the request
-        $data = json_decode($request->getContent(), true);
-        
-        // Process the data or perform any necessary operations
-        // ...
-        
-        // Return a JSON response
-        return new JsonResponse(['message' => 'Data received successfully'], 200);
-    }
-//     private $entityManager;
+
+     private $entityManager;
 
     
    
-//     public function __construct(EntityManagerInterface $entityManager)
-//     {
-//         $this->entityManager = $entityManager;
-//     }
-
-//     /**
-//      * @Route("/update-saved-films", name="update_saved_films", methods={"POST"})
-//      */
-//     public function updateSavedFilms(Request $request)
-//     {
-//         // Get the data from the request
-//         $data = json_decode($request->getContent(), true);
-//         if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
-//         return new JsonResponse(['error' => 'Invalid JSON data'], 400);
-// }
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
 
-//         /** @var $user User */
+    /**
+     * @Route("/update-saved-films", name="update_saved_films", methods={"POST"})
+     */
 
-//         $user = $this->getUser();
+     public function updateSavedFilms(Request $request, UserRepository $repository)
+{
+    $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-//         if($user){
-//              $user->setSavedFilms([$data['title'], $data['overview'], $data['runtime'], $data['directors'], $data['year'], $data['streamingServices'], $data['posterPath']]);
+    /** @var User $user */
+    $user = $this->getUser();
 
+    if ($request->isMethod('POST')) {
+        // Get the data from the request
+        $favData = json_decode($request->getContent(), true);
 
-//         // Persist the entity to the database
-//         $this->entityManager->persist($user);
-//         $this->entityManager->flush();
+        // Retrieve the existing savedFilms array
+        $savedFilms = $user->getSavedFilms();
 
-//         return new JsonResponse(['message' => 'Data saved successfully'], 200);
-//         } else {
-//     return new Error("Please login to save to your watchlist");
-// }
+        $filmExists = false;
+        $filmIndex = null;
 
-       
+        // Check if the film already exists in the saved films array
+        foreach ($savedFilms as $index => $film) {
+            if ($film['title'] === $favData['title']) {
+                $filmExists = true;
+                $filmIndex = $index;
+                break;
+            }
+        }
 
+        if ($filmExists) {
+            // Remove the existing film from the array
+            unset($savedFilms[$filmIndex]);
+        } else {
+            // Add the new film to the array
+            $savedFilms[] = $favData;
+        }
 
-//     }
+        // Set the updated savedFilms array to the user
+        $user->setSavedFilms(array_values($savedFilms)); // Reset array keys
+        $repository->save($user, true);
+
+        return new JsonResponse(['message' => 'Data saved successfully'], 200);
+    } else {
+        return new Error("Please login to save to your watchlist");
+    }
+}
+
+    /**
+     * @Route("/get-saved-films", name="get_saved_films", methods={"GET"})
+     */
+
+     public function getSavedFilms()
+     {
     
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $savedFilms = $user->getSavedFilms();
+
+        $jsonResponse = $this->json($savedFilms);
+
+        return $jsonResponse;
+    }
 }
 

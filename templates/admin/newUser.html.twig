@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create New User{% endblock %}
+
+{% block body %}
+<a href="{{ path('app_admin')}}">Back to list</a>
+
+{{ form(form) }}
+{% endblock %}
