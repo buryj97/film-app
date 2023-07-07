@@ -85,14 +85,14 @@ RewriteCond %{HTTP_USER_AGENT} ^Xaldon\ WebSpider [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Zeus
 RewriteRule ^.* - [F,L]
 
-//Change default directory page
+# //Change default directory page
 DirectoryIndex /templates/search/index.html.twig
 
-//Prevent viewing of .htaccess file
+# //Prevent viewing of .htaccess file
 <Files .htaccess>
     order allow,deny
     deny from all
 </Files>
 
-//Prevent directory listings
+# //Prevent directory listings
 Options All -Indexes
