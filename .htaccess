@@ -5,7 +5,7 @@ Options +FollowSymLinks
 # RewriteCond %{HTTP_HOST} ^www.qfq7589.webmo.fr [NC]
 # RewriteRule ^(.*)$ http://findafilm.fr/$1 [L,R=301,NC]
 
-//Block bad bots
+# //Block bad bots
 RewriteEngine On
 RewriteCond %{HTTP_USER_AGENT} ^BlackWidow [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Bot\ mailto:craftbot@yahoo.com [OR]
