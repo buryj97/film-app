@@ -1,4 +1,4 @@
-//Rewrite to www
+# //Rewrite to www
 Options +FollowSymLinks
 # RewriteEngine on
 # RewriteCond %{HTTP_HOST} ^qfq7589.webmo.fr [NC,OR]
