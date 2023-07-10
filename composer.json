@@ -11,6 +11,7 @@
     "doctrine/annotations": "^2.0",
     "doctrine/doctrine-bundle": "^2.9",
     "doctrine/doctrine-migrations-bundle": "^3.2",
+    "doctrine/doctrine-fixtures-bundle": "^3.4",
     "doctrine/orm": "^2.14",
     "fakerphp/faker": "^1.21",
     "hautelook/alice-bundle": "^2.12",
