@@ -7,45 +7,6 @@
 
 <h1 class="text-center">Find a Film</h1>
 {{ form(form, { 'attr' : { 'class': 'film_search mx-auto col-10 d-flex flex-column' } }) }}
-{# {{ form_start(form, { 'attr' : { 'class': 'film_search'}}) }}
-
-    <div class="row mx-auto col-10">
-      <div class="row">
-        <div class="col film_search">
-            {{ form_row(form.keywords) }}
-        </div>
-        <div class="col film_search" id="some-custom-id">
-            {{ form_row(form.genre) }}
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col film_search" id="some-custom-id">
-            {{ form_row(form.country) }}
-        </div>
-        <div class="col film_search" id="some-custom-id">
-            {{ form_row(form.language) }}
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col mx-auto">
-        <label for="streamingServices">Streaming Services *</label>
-        <div class="form-check form-check-inline film_search">
-          {% for choice in form.streamingServices %}
-              <label class="form-check-label mt-3 px-3">
-                  {{ form_widget(choice) }}
-              </label>
-          {% endfor %}
-      </div>
-    </div>
-        <p class="small mt-3">* Required fields</p>
-
-        {{ form_widget(form.submit, {'attr' : {'class': 'btn btn-primary col-5 mt-3 mx-auto'}})}}
-    </div>
-{{ form_end(form) }} #}
-
-
 
 <div id="card-container" class="row row-cols-4 row-cols-md-4 g-4 col-11 mx-auto">
 </div>
