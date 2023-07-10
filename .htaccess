@@ -1,9 +1,9 @@
 # //Rewrite to www
 Options +FollowSymLinks
-# RewriteEngine on
-# RewriteCond %{HTTP_HOST} ^qfq7589.webmo.fr [NC,OR]
-# RewriteCond %{HTTP_HOST} ^www.qfq7589.webmo.fr [NC]
-# RewriteRule ^(.*)$ http://findafilm.fr/$1 [L,R=301,NC]
+; # RewriteEngine on
+; # RewriteCond %{HTTP_HOST} ^qfq7589.webmo.fr [NC,OR]
+; # RewriteCond %{HTTP_HOST} ^www.qfq7589.webmo.fr [NC]
+; # RewriteRule ^(.*)$ http://findafilm.fr/$1 [L,R=301,NC]
 
 # //Block bad bots
 RewriteEngine On
