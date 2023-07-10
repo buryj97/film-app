@@ -13,7 +13,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class AccountController extends AbstractController
 {
     #[Route('/account', name: 'app_account')]
-    public function index(UserRepository $repository): Response
+    public function account(UserRepository $repository): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 

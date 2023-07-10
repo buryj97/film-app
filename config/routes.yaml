@@ -7,9 +7,18 @@ app_logout:
   path: /logout
   controller: App\Controller\SecurityController::logout
   methods: GET
+app_login:
+  path: /login
+  controller: App\Controller\LoginController::login
+  methods: [GET|POST]
 index:
   path: /
   controller: App\Controller\SearchController::search
+app_search:
+  path: /search
+  methods: [GET]
+  defaults:
+    _controller: App\Controller\SearchController::search
 update_saved_films:
   path: /update-saved-films
   methods: [POST]
@@ -25,3 +34,13 @@ remove_film:
   methods: [GET|POST]
   defaults:
     _controller: App\Controller\AccountController::removeFilm
+app_account:
+  path: /account
+  methods: [GET]
+  defaults:
+    _controller: App\Controller\AccountController::account
+app_admin:
+  path: /admin
+  methods: [GET]
+  defaults:
+    _controller: App\Controller\AdminController::list
