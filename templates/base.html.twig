@@ -22,27 +22,27 @@
         <div class="container-fluid">
             <!-- LOGO -->
             <div class="col-3">
-            <a class="navbar-brand" href="{{ url('app_search') }}"><img class="logo" src="public/images/logo_trans.png" alt="Film Finder logo"></a>
+            <a class="navbar-brand" href="{{ relative_path('app_search') }}"><img class="logo" src="public/images/logo_trans.png" alt="Film Finder logo"></a>
             </div>
             <!-- NAVIGATION MENU -->
             <ul class="navbar-nav me-4 mb-2 mb-lg-0 d-flex align-items-center justify-content-end">
 
                 <!-- NAVIGATION MENUS -->
 
-                <li class="nav-item"><a class="nav-link" href="{{ url('app_search') }}">Find a Film</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ relative_path('app_search') }}">Find a Film</a></li>
                 {# <li class="nav-item"><a class="nav-link" href="/">Get a Recommendation</a></li> #}
                 {% if is_granted('ROLE_ADMIN') %}
-                <li class="nav-item"><a class="nav-link" href="{{ url('app_admin') }}">Admin</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ relative_path('app_admin') }}">Admin</a></li>
                 {% endif %}
 
                 <li class="nav-item">{% if is_granted('ROLE_USER') %}
-                    <a class="nav-link" href="{{ url('app_logout') }}">Logout</a>
+                    <a class="nav-link" href="{{ relative_path('app_logout') }}">Logout</a>
                     </li>
                     <li class="services nav-item">
-                    <a class="nav-link" href="{{ url('app_account')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Your Profile"><i class="bi-person-fill"></i></a>
+                    <a class="nav-link" href="{{ relative_path('app_account')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Your Profile"><i class="bi-person-fill"></i></a>
                 </li>
                     {% else %}
-                    <a class="nav-link" href="{{ url('app_login') }}">Login or Signup</a></li>
+                    <a class="nav-link" href="{{ relative_path('app_login') }}">Login or Signup</a></li>
                     {% endif %}
 
                  
