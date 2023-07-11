@@ -86,7 +86,7 @@ RewriteCond %{HTTP_USER_AGENT} ^Zeus
 RewriteRule ^.* - [F,L]
 
 # //Change default directory page
-# DirectoryIndex /public/index.php
+DirectoryIndex /public/index.php
 
 # //Prevent viewing of .htaccess file
 <Files .htaccess>
