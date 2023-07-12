@@ -13,13 +13,17 @@ class SearchController extends AbstractController
     #[Route('/search', name: 'app_search')]
     public function search(Request $request): Response
     {
+        /** @var User $user */
+    $user = $this->getUser();
+
         $form = $this->createForm(FilmSearchType::class);
 
         $form->handleRequest($request);
 
          return $this->render('search/index.html.twig', 
          [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
          ]);
     }   
 }
