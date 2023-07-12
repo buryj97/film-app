@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -12,11 +13,10 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginController extends AbstractController
 {
     #[Route('/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, UserRepository $repository): Response
       {
-        // if ($this->getUser()) {
-        //     return new RedirectResponse('app_user_signUp');
-        // }
+        $users = $repository->findAll();
+        var_dump($users);
          // get the login error if there is one
          $error = $authenticationUtils->getLastAuthenticationError();
 
