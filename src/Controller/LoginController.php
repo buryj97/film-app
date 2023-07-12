@@ -15,8 +15,8 @@ class LoginController extends AbstractController
     #[Route('/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils, UserRepository $repository): Response
       {
-        $users = $repository->findAll();
-        var_dump($users);
+        // $users = $repository->findAll();
+        // var_dump($users);
          // get the login error if there is one
          $error = $authenticationUtils->getLastAuthenticationError();
 
