@@ -4,7 +4,7 @@
 
 
 {% block body %}
-<p class="h1">{{user}}</p>
+<p class="h1">{% if user %}{{user}}{% else %} Not logged</p>
 
 <h1 class="text-center">Find a Film</h1>
 {{ form(form, { 'attr' : { 'class': 'film_search mx-auto col-10 d-flex flex-column' } }) }}
