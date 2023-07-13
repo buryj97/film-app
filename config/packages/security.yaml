@@ -14,8 +14,9 @@ security:
       # ...
       form_login:
         login_path: /login
-        check_path: /login
+        check_path: /login_check
         enable_csrf: true
+
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
@@ -24,7 +25,7 @@ security:
       provider: app_user_provider
       form_login:
         login_path: /login
-        check_path: /login
+        check_path: /login_check
         default_target_path: /account
       logout:
         path: app_logout
