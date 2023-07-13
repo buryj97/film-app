@@ -15,7 +15,6 @@ class SearchController extends AbstractController
     {
         /** @var User $user */
     $user = $this->getUser();
-    $email = $user->getEmail();
 
         $form = $this->createForm(FilmSearchType::class);
 
@@ -24,7 +23,7 @@ class SearchController extends AbstractController
          return $this->render('search/index.html.twig', 
          [
             'form' => $form->createView(),
-            'user' => $email
+            'user' => $user
          ]);
     }   
 }
