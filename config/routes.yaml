@@ -11,6 +11,10 @@ app_login:
   path: /login
   controller: App\Controller\LoginController::login
   methods: [GET|POST]
+app_signup:
+  path: /signup
+  controller: App\Controller\UserController::signUp
+  methods: [POST]
 index:
   path: /
   controller: App\Controller\SearchController::search
