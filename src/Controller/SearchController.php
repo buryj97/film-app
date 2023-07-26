@@ -16,8 +16,7 @@ class SearchController extends AbstractController
     {
         /** @var User $user */
     $user = $this->getUser();
-    $users = $repository->findAll();
-        var_dump($users);
+        var_dump($user);
 
         $form = $this->createForm(FilmSearchType::class);
 
