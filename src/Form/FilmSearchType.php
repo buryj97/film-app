@@ -117,7 +117,8 @@ class FilmSearchType extends AbstractType
             ])
            
             ->add('language', LanguageType::class,[
-            'required' => false
+            'required' => false,
+            'label' => 'Original Language'
             ])
     
             ->add('streamingServices', ChoiceType::class,
