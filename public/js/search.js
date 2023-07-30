@@ -198,7 +198,9 @@ function generateCards(responseData) {
       }
 
       var logoSrc;
-      var streamingLogos = $("<div>").addClass("streaming-logos");
+      var streamingLogos = $("<div>").addClass(
+        "streaming-logos d-flex justify-content-between"
+      );
 
       // display logos for each service that exists in the response data
       streamingServices.forEach(function (service) {
@@ -242,17 +244,21 @@ function generateCards(responseData) {
         cardOverview.text(limit(responseData.result[i].overview) + "...");
       }
 
-      const buttonDiv = $("<div>").addClass(
-        "container d-flex align-items-center justify-content-evenly mx-auto col-12"
+      // const buttonDiv = $("<div>").addClass(
+      //   "container d-flex align-items-center justify-content-evenly mx-auto col-12"
+      // );
+
+      // const cardButton = $("<a>")
+      //   .addClass("btn btn-primary col-10")
+      //   .text("Read more");
+
+      const cardFavorite = $("<a>").addClass(
+        "bi bi-heart col-1 align-self-end me-1"
       );
 
-      const cardButton = $("<a>")
-        .addClass("btn btn-primary col-10")
-        .text("Read more");
+      streamingLogos.append(cardFavorite);
 
-      const cardFavorite = $("<a>").addClass("bi bi-heart col-1");
-
-      buttonDiv.append(cardButton, cardFavorite);
+      // buttonDiv.append(cardButton, cardFavorite);
 
       function checkSavedFilms(savedFilms, cardFavorite) {
         savedFilms.forEach((savedFilm) => {
@@ -293,8 +299,6 @@ function generateCards(responseData) {
           (service) => BASE_IMAGE_URL + getLogoSrc(service)
         );
 
-        console.log(favData);
-
         fetch("update-saved-films", {
           method: "POST",
           body: JSON.stringify(favData), // Pass the retrieved JSON data
@@ -317,7 +321,7 @@ function generateCards(responseData) {
         cardYear,
         cardDirectors,
         streamingLogos,
-        buttonDiv,
+        // buttonDiv,
         cardFooter
       );
 

@@ -3,8 +3,12 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block body %}
+<h1 class="text-center">Create an account</h1>
 
-{{ form(form) }}
+{{ form(form, { 'attr' : { 'class': 'mx-auto col-9 d-flex flex-column' } }) }}
 
-<p>Already have an account? <a href="{{ path('app_login')}}">Login</a></p>
+<div class="col-5 mx-auto text-center mt-3">
+    <h4>Already have an account?</h4>
+    <a class="btn btn-sm btn-secondary mt-2 mb-4" href="{{ path('app_login')}}">Login</a>
+ </div>
 {% endblock %}

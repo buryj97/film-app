@@ -5,8 +5,11 @@
 {% block body %}
 
     <h1 class="text-center"> Modify Your Profile</h1>
+    
+    {{ form(form, { 'attr' : { 'class': 'mx-auto col-9 d-flex flex-column' } }) }}
 
-    <form class="col-10 mx-auto" method="POST" action="{{ path('app_account_modify') }}">
+
+    {# <form class="col-9 mx-auto" method="POST" action="{{ path('app_account_modify') }}">
         <label class="form-label" for="firstName">First Name: </label>
         <input class="form-control" type="text" name="firstName" id="firstName" value="{{ app.user.firstName }}">
     
@@ -18,7 +21,7 @@
 
         <label class="form-label" for="country">Country:</label>
         <select class="form-select" id="country" name="country">
-            <option disabled selected>{{ app.user.country }}</option>
+            <option disabled selected value="">{{ app.user.country }}</option>
             <option value="AF">Afghanistan</option>
             <option value="AX">Aland Islands</option>
             <option value="AL">Albania</option>
@@ -281,7 +284,7 @@
             {% set isChecked = service in app.user.streamingServices %}
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="{{ service|lower }}" name="{{ service|lower }}" {% if isChecked %}checked{% endif %}>
+                    <input class="form-check-input" type="checkbox" id="{{ service|lower }}" name="{{ service|lower }}" value="{{ service|lower }}" {% if isChecked %}checked{% endif %}>
                     <label class="form-check-label" for="{{ service|lower }}">{{ service }}</label>
                 </div>
             {% endfor %}
@@ -289,21 +292,16 @@
 
         <div class="row g-3 align-items-center">
             <div class="col-auto">
-                <label for="inputPassword6" class="col-form-label">New Password:</label>
+                <label for="inputPassword" class="col-form-label">New Password:</label>
             </div>
             <div class="col-auto">
-                <input type="password" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                <input name="password" type="password" id="inputPassword" class="form-control" aria-labelledby="passwordHelpInline">
             </div>
-            {# <div class="col-auto">
-                <span id="passwordHelpInline" class="form-text">
-                Must be 8-20 characters long.
-                </span>
-            </div> #}
         </div>
 
 
         <button class="btn btn-primary col-12 mt-3"type="submit">Submit</button>
-    </form>
+    </form> #}
 
 
     {% endblock %}

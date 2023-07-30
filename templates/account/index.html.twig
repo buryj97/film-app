@@ -41,9 +41,11 @@
           <h6 class="mb-0">Streaming Services</h6>
         </div>
         <div class="col-sm-9 text-secondary">
+        <ul class="list-unstyled">
           {% for streamingServices in app.user.streamingServices %}
-          {{ streamingServices }} <br>
+          <li>{{ streamingServices }}</li> 
           {% endfor %}
+          </ul>
         </div>
       </div>
       <hr>
@@ -92,7 +94,7 @@
     {# use join to display each element of the array in one string #}
     <small class="text-body-secondary">Director: {{ savedFilms.directors|join(', ') }}</small>
 
-    <div class="streaming-logos">
+    <div class="streaming-logos d-flex justify-content-between">
     {# cycle through the streaming services array #}
   {% for index, streamingService in savedFilms.streamingServices %}
     {# include only services from the search/signup form #}
@@ -101,12 +103,12 @@
     <img class="card-logo rounded-circle" src="{{ savedFilms.streamingLogos[index] }}" alt="{{ streamingService }} Logo">
     {% endif %}
   {% endfor %}
+   <a class="bi bi-heart-fill col-1 align-self-end me-1" href="{{ path('remove_film', {'title': savedFilms.title})}}"></a>
   </div>
 
-  <div class="container d-flex align-items-center justify-content-evenly mx-auto col-12 mb-3">
-    <a class="btn btn-primary col-10">Read more</a>
+  {# <div class="container d-flex align-items-center justify-content-evenly mx-auto col-12 mb-3">
     <a class="bi bi-heart-fill col-1" href="{{ path('remove_film', {'title': savedFilms.title})}}"></a>
-  </div>
+  </div> #}
   <div class="card-footer mt-2">
     <small class="text-body-secondary">{{savedFilms.runtime}} minutes</small>
   </div>
