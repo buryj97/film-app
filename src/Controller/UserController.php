@@ -28,7 +28,7 @@ class UserController extends AbstractController
 
             $repository->save($user, true);
 
-            $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_login');
         }
         return $this->render('user/signup.html.twig', [
             'form' => $form->createView()

@@ -12,20 +12,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SearchController extends AbstractController
 {
     #[Route('/search', name: 'app_search')]
-    public function search(Request $request, UserRepository $repository): Response
+    public function search(Request $request): Response
     {
-        /** @var User $user */
-    $user = $this->getUser();
-        var_dump($user);
-
         $form = $this->createForm(FilmSearchType::class);
 
         $form->handleRequest($request);
 
          return $this->render('search/index.html.twig', 
          [
-            'form' => $form->createView(),
-            'user' => $user
+            'form' => $form->createView()
          ]);
     }   
 }
