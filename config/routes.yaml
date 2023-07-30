@@ -14,7 +14,7 @@ app_login:
 app_signup:
   path: /signup
   controller: App\Controller\UserController::signUp
-  methods: [POST]
+  methods: [GET|POST]
 index:
   path: /
   controller: App\Controller\SearchController::search
