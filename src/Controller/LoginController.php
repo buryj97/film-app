@@ -21,12 +21,12 @@ class LoginController extends AbstractController
          // last username entered by the user
          $lastUsername = $authenticationUtils->getLastUsername();
 
-        $this->redirectToRoute('app_account');
-
-
           return $this->render('user/login.html.twig', [
              'last_username' => $lastUsername,
              'error'         => $error,
           ]);
+
+        // $this->redirectToRoute('app_account');
+
       }
   }

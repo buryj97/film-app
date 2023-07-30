@@ -3,7 +3,7 @@ framework:
   assets:
     base_path: /public
   secret: "%env(APP_SECRET)%"
-  #csrf_protection: true
+  csrf_protection: true
   http_method_override: false
   handle_all_throwables: true
   http_client:
@@ -14,7 +14,7 @@ framework:
   # Remove or comment this section to explicitly disable session support.
   session:
     handler_id: null
-    cookie_secure: true #or null
+    cookie_secure: auto #true #or null
     cookie_samesite: lax
     storage_factory_id: session.storage.factory.native
 
