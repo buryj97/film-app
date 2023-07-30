@@ -24,6 +24,7 @@ class UserController extends AbstractController
             $password = $user->getPassword();
             $cryptedPassword = $encoder->hashPassword($user, $password);
             $user->setPassword($cryptedPassword);
+            $user->setRoles(["ROLE_USER"]);
 
             $repository->save($user, true);
 
