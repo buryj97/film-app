@@ -17,7 +17,7 @@
 
 .bi {
   font-size: 30px;
-  color: red;
+  color: var(--pink);
   cursor: pointer;
   /* z-index: 1; */
 }
