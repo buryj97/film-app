@@ -198,6 +198,7 @@ function generateCards(responseData) {
       }
 
       var logoSrc;
+      var iconsDiv = $("<div>").addClass("d-flex justify-content-between");
       var streamingLogos = $("<div>").addClass(
         "streaming-logos d-flex justify-content-between"
       );
@@ -207,11 +208,13 @@ function generateCards(responseData) {
         logoSrc = getLogoSrc(service);
         if (logoSrc) {
           var logo = $("<img>")
-            .addClass("card-logo rounded-circle")
+            .addClass("card-logo rounded-circle img-fluid")
             .attr("src", BASE_IMAGE_URL + logoSrc);
           streamingLogos.append(logo);
         }
       });
+
+      iconsDiv.append(streamingLogos);
 
       // create a card body element
       const cardBody = $("<div>").addClass("card-body");
@@ -253,10 +256,10 @@ function generateCards(responseData) {
       //   .text("Read more");
 
       const cardFavorite = $("<a>").addClass(
-        "bi bi-heart col-1 align-self-end me-1"
+        "bi bi-heart col-1 align-self-end me-3"
       );
 
-      streamingLogos.append(cardFavorite);
+      iconsDiv.append(cardFavorite);
 
       // buttonDiv.append(cardButton, cardFavorite);
 
@@ -320,7 +323,7 @@ function generateCards(responseData) {
         cardBody,
         cardYear,
         cardDirectors,
-        streamingLogos,
+        iconsDiv,
         // buttonDiv,
         cardFooter
       );

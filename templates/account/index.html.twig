@@ -6,15 +6,15 @@
 <h1 class="text-center">Your Profile</h1>
 
 {# profile card #}
-<div class="col-md-4 mx-auto mt-5">
+<div class="col-lg-5 mx-auto mt-5 text-center">
   <div class="card mb-3">
     <div class="card-body">
       <div class="row">
         <div class="col-sm-3">
-          <h6 class="mb-0">Full Name</h6>
+          <p class="card-title h6">Full Name</p>
         </div>
         <div class="col-sm-9 text-secondary">
-          {{ app.user.firstName }} {{ app.user.lastName }}
+          <p class="card-text">{{ app.user.firstName }} {{ app.user.lastName }}</p>
         </div>
       </div>
       <hr>
@@ -59,7 +59,7 @@
       </div>
       <hr>
       <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12 text-center">
           <a class="btn btn-primary" href="{{ path('app_account_modify')}}">Edit Profile</a>
         </div>
       </div>
@@ -67,7 +67,7 @@
   </div>
 </div>
 
-<hr class="mt-4 mb-4 w-75 mx-auto">
+<hr class="my-5 w-75 mx-auto">
 <h2 class="h1 text-center">Watchlist</h2>
 
 {# display text if there are no films in the watchlist #}
@@ -76,7 +76,7 @@
 {% else %}
 
 {# card container to display all of the saved films #}
-<div id="card-container" class="row row-cols-4 row-cols-md-4 g-4 col-11 mx-auto">
+<div id="card-container" class="row row-cols-2 row-cols-md-4 g-4 col-11 mx-auto">
 
   {% for savedFilms in app.user.savedFilms %}
   <div class="card">
@@ -93,17 +93,18 @@
     <small class="text-body-secondary">{{savedFilms.year}}</small>
     {# use join to display each element of the array in one string #}
     <small class="text-body-secondary">Director: {{ savedFilms.directors|join(', ') }}</small>
-
+  <div class="d-flex justify-content-between">
     <div class="streaming-logos d-flex justify-content-between">
-    {# cycle through the streaming services array #}
-  {% for index, streamingService in savedFilms.streamingServices %}
-    {# include only services from the search/signup form #}
-    {% if streamingService == 'netflix' or streamingService == 'disney' or streamingService == 'prime' or streamingService == 'hulu' or streamingService == 'hbo' or streamingService == 'mubi' %}
-    {# display logo associated with each service #}
-    <img class="card-logo rounded-circle" src="{{ savedFilms.streamingLogos[index] }}" alt="{{ streamingService }} Logo">
-    {% endif %}
-  {% endfor %}
-   <a class="bi bi-heart-fill col-1 align-self-end me-1" href="{{ path('remove_film', {'title': savedFilms.title})}}"></a>
+        {# cycle through the streaming services array #}
+      {% for index, streamingService in savedFilms.streamingServices %}
+        {# include only services from the search/signup form #}
+        {% if streamingService == 'netflix' or streamingService == 'disney' or streamingService == 'prime' or streamingService == 'hulu' or streamingService == 'hbo' or streamingService == 'mubi' %}
+        {# display logo associated with each service #}
+        <img class="card-logo rounded-circle" src="{{ savedFilms.streamingLogos[index] }}" alt="{{ streamingService }} Logo">
+        {% endif %}
+      {% endfor %}
+      </div>
+      <a class="bi bi-heart-fill col-1 align-self-end me-3" href="{{ path('remove_film', {'title': savedFilms.title})}}"></a>
   </div>
 
   {# <div class="container d-flex align-items-center justify-content-evenly mx-auto col-12 mb-3">

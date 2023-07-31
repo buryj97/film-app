@@ -23,8 +23,9 @@
 }
 
 .rounded-circle {
-  width: 15%;
+  width: 40px;
   margin: 5px 5px 5px 0;
+  object-fit: cover;
 }
 
 .logo {
@@ -39,4 +40,23 @@
 
 .navbar-expand-xxl {
   justify-content: space-between;
+}
+
+@media only screen and (max-width: 768px) {
+  .logo {
+    height: 100px;
+    width: 150px;
+  }
+}
+
+@media only screen and (max-width: 1068px) {
+  .rounded-circle {
+    width: 35px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .card-img-top {
+    height: 200px;
+  }
 }
