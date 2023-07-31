@@ -19,7 +19,6 @@
   font-size: 30px;
   color: var(--pink);
   cursor: pointer;
-  /* z-index: 1; */
 }
 
 .rounded-circle {

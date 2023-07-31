@@ -49,61 +49,10 @@ class AccountController extends AbstractController
             $cryptedPassword = $passwordHasher->hashPassword($user, $password);
             $user->setPassword($cryptedPassword);
           
-            // $repository->save($user, true);
             $repository->save($user, true);
 
             return $this->redirectToRoute('app_account');
         }
-
-        // if ($request->isMethod('POST')) {
-            
-        //     $formData = $request->request->all();
-
-        //     $firstName = $formData['firstName'];
-        //     $user->setFirstName($firstName);
-
-        //     $lastName = $formData['lastName'];
-        //     $user->setLastName($lastName);
-
-        //     $email = $formData['email'];
-        //     $user->setEmail($email);
-
-        //     $country = $formData['country'];
-        //     $user->setCountry($country);
-
-        //     // Retrieve the selected streaming services as an array
-        //     $streamingServices = $formData['service'] ?? [];
-        //     $user->setStreamingServices($streamingServices);
-
-        //     $password = $formData['password'];
-        //     $cryptedPassword = $passwordHasher->hashPassword($user, $password);
-        //     $user->setPassword($cryptedPassword);
-
-        //     ____________________
-            
-        //     $firstName = $request->request->get('firstName');
-        //     $user->setFirstName($firstName);
-
-        //     $lastName = $request->request->get('lastName');
-        //     $user->setLastName($lastName);
-
-        //     $email = $request->request->get('email');
-        //     $user->setEmail($email);
-
-        //     $country = $request->request->get('country');
-        //     $user->setCountry($country);
-
-        //     $streamingServices = $request->request->get('service', []);
-        //     $user->setStreamingServices($streamingServices);
-
-        //     $password = $request->request->get('password');
-        //     $cryptedPassword = $passwordHasher->hashPassword($user, $password);
-        //     $user->setPassword($cryptedPassword);
-
-        //     $repository->save($user, true);
-
-        //     return $this->redirectToRoute('app_account');
-        // }
 
         return $this->render('account/modifyAccount.html.twig', [
             'form' => $form->createView()

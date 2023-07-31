@@ -105,14 +105,10 @@
       {% endfor %}
       </div>
       <a class="bi bi-heart-fill col-1 align-self-end me-3" href="{{ path('remove_film', {'title': savedFilms.title})}}"></a>
-  </div>
-
-  {# <div class="container d-flex align-items-center justify-content-evenly mx-auto col-12 mb-3">
-    <a class="bi bi-heart-fill col-1" href="{{ path('remove_film', {'title': savedFilms.title})}}"></a>
-  </div> #}
-  <div class="card-footer mt-2">
-    <small class="text-body-secondary">{{savedFilms.runtime}} minutes</small>
-  </div>
+    </div>
+    <div class="card-footer mt-2">
+      <small class="text-body-secondary">{{savedFilms.runtime}} minutes</small>
+    </div>
   </div>
   {% endfor %}
 </div>

@@ -214,6 +214,7 @@ function generateCards(responseData) {
         }
       });
 
+      //attach streaming logos div to div shared with favorite icon
       iconsDiv.append(streamingLogos);
 
       // create a card body element
@@ -247,21 +248,11 @@ function generateCards(responseData) {
         cardOverview.text(limit(responseData.result[i].overview) + "...");
       }
 
-      // const buttonDiv = $("<div>").addClass(
-      //   "container d-flex align-items-center justify-content-evenly mx-auto col-12"
-      // );
-
-      // const cardButton = $("<a>")
-      //   .addClass("btn btn-primary col-10")
-      //   .text("Read more");
-
       const cardFavorite = $("<a>").addClass(
         "bi bi-heart col-1 align-self-end me-3"
       );
 
       iconsDiv.append(cardFavorite);
-
-      // buttonDiv.append(cardButton, cardFavorite);
 
       function checkSavedFilms(savedFilms, cardFavorite) {
         savedFilms.forEach((savedFilm) => {
@@ -318,15 +309,9 @@ function generateCards(responseData) {
       });
 
       cardBody.append(cardHeader, cardOverview);
+
       // append the header and body elements to the card element
-      card.append(
-        cardBody,
-        cardYear,
-        cardDirectors,
-        iconsDiv,
-        // buttonDiv,
-        cardFooter
-      );
+      card.append(cardBody, cardYear, cardDirectors, iconsDiv, cardFooter);
 
       // append the card element to the container
       $("#card-container").append(card);
