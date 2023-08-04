@@ -1,11 +1,11 @@
 // Initialize variables
-let cursor = "";
+let cursor;
 var responseData = [];
 var country = "";
 var keywords = "";
 let favData = {};
 
-// Submit form
+// Retrieve form and handle submission
 
 const form = document.getElementsByClassName("film_search")[0];
 form.addEventListener("submit", function (event) {
