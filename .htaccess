@@ -1,9 +1,9 @@
 # //Rewrite to www
 Options +FollowSymLinks
-# RewriteEngine on
-# RewriteCond %{HTTP_HOST} ^film-api-4fe84ede6ed5.herokuapp.com [NC,OR]
-# RewriteCond %{HTTP_HOST} ^www.film-api-4fe84ede6ed5.herokuapp.com [NC]
-# RewriteRule ^(.*)$ https://film-api-4fe84ede6ed5.herokuapp.com/$1 [L,R=301,NC]
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^findafilm.fr [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.findafilm.fr [NC]
+RewriteRule ^(.*)$ https://fwww.findafilm.fr/$1 [L,R=301,NC]
 
 # //Block bad bots
 RewriteEngine On
