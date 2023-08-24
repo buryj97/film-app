@@ -3,6 +3,8 @@
 {% block title %}Modify User {{user.email}}{% endblock %}
 
 {% block body %}
-<a href="{{ path('app_admin')}}">Back to list</a>
-{{ form(form) }}
+<div class="d-flex col-10 justify-content-end">
+<a class="btn btn-sm btn-secondary" href="{{ path('app_admin')}}">Back to list</a>
+</div>
+{{ form(form, { 'attr' : { 'class': 'mx-auto col-10 d-flex flex-column' } }) }}
 {% endblock %}

@@ -2,37 +2,28 @@
 <html lang="en">
 
 <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-T3JB7VTV');</script>
-    <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}Film Finder{% endblock %}</title>
-    <link rel="icon"
-        href="/images/favicon.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <meta name="description"
+        content="Find a film to watch tonight with Film Finder! Whether you want a movie that makes you laugh, cry, or fills you with nostalgia, Film Finder can help you decide what to watch. Filter movies by genre, streaming service, language, keywords, and country. Create a watchlist that contains films which are available on streaming services you are already subscribed to, in your country.">
+    <meta name="keywords"
+        content="film, films, find a film, film finder, film search, movie, movies, find a movie, movie search, what to watch, what to watch tonight, netflix, hulu, amazon, amazon prime, amazon video, amazon prime video, disney, disney plus, disney+, mubi, HBO, hbo max, max, where to watch, streaming services, what movie should i watch, movies to watch">
+    <link rel="icon" href="/images/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/style.css">
-    {# {% block stylesheets %}
-    {{ encore_entry_link_tags('app') }}
-    {% endblock %} #}
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3JB7VTV"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
     {% block header %}
     <nav class="navbar navbar-expand-md ">
         <div class="container-fluid">
             <!-- LOGO -->
             <div class="col-3">
-                <a class="navbar-brand" href="{{ path('app_search') }}"><img class="logo" src="/images/logo_trans.png" alt="Film Finder logo"></a>
+                <a class="navbar-brand" href="{{ path('app_search') }}"><img class="logo" src="/images/logo_trans.png"
+                        alt="Film Finder logo"></a>
             </div>
             <!-- NAVIGATION MENU -->
             <ul class="navbar-nav me-4 mb-2 mb-lg-0 d-flex align-items-center justify-content-end" id="menu">
@@ -44,14 +35,15 @@
                 {# IF LOGGED AS USER #}
                 <li class="nav-item">{% if is_granted('ROLE_USER') %}
                     <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
-                    </li>
-                    <li class="services nav-item">
-                    <a class="nav-link" href="{{ path('app_account')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Your Profile"><i class="bi-person-fill"></i></a>
                 </li>
-                    {% else %}
-                    <a class="nav-link" href="{{ path('app_login') }}">Login or Signup</a></li>
-                    {% endif %}
-               
+                <li class="services nav-item">
+                    <a class="nav-link" href="{{ path('app_account')}}" data-bs-toggle="tooltip"
+                        data-bs-placement="bottom" data-bs-title="Your Profile"><i class="bi-person-fill"></i></a>
+                </li>
+                {% else %}
+                <a class="nav-link" href="{{ path('app_login') }}">Login or Signup</a></li>
+                {% endif %}
+
             </ul>
         </div>
     </nav>
@@ -59,11 +51,13 @@
     {% endblock %}
 
     {% block body %}
-  
+
     {% endblock %}
 
     {% block javascripts %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
 
     {% endblock %}
 </body>
