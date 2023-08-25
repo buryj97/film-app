@@ -4,6 +4,12 @@ var responseData = [];
 var country = "";
 var keywords = "";
 let favData = {};
+var isAuthenticated;
+
+//passes user authentification status from twig
+document.addEventListener("DOMContentLoaded", function () {
+  isAuthenticated = $(".js-user-rating").data("isAuthenticated");
+});
 
 // Retrieve form and handle submission
 
@@ -280,32 +286,41 @@ function generateCards(responseData) {
 
       // create variable to pass data to SQL server when a user saves a film to their watchlist
       cardFavorite.on("click", function () {
-        $(this).toggleClass("bi-heart");
-        $(this).toggleClass("bi-heart-fill");
-        favData.title = responseData.result[i].title;
-        favData.overview = responseData.result[i].overview;
-        favData.posterPath = BASE_IMAGE_URL + responseData.result[i].posterPath;
-        favData.directors = responseData.result[i].directors;
-        favData.runtime = responseData.result[i].runtime;
-        favData.year = responseData.result[i].year;
-        favData.streamingServices = streamingServices;
-        favData.streamingLogos = streamingServices.map(
-          (service) => BASE_IMAGE_URL + getLogoSrc(service)
-        );
+        //ensure user is logged in by checking for presence of account icon in the nav bar
+        if (isAuthenticated === true) {
+          $(this).toggleClass("bi-heart");
+          $(this).toggleClass("bi-heart-fill");
+          favData.title = responseData.result[i].title;
+          favData.overview = responseData.result[i].overview;
+          favData.posterPath =
+            BASE_IMAGE_URL + responseData.result[i].posterPath;
+          favData.directors = responseData.result[i].directors;
+          favData.runtime = responseData.result[i].runtime;
+          favData.year = responseData.result[i].year;
+          favData.streamingServices = streamingServices;
+          favData.streamingLogos = streamingServices.map(
+            (service) => BASE_IMAGE_URL + getLogoSrc(service)
+          );
 
-        fetch("update-saved-films", {
-          method: "POST",
-          body: JSON.stringify(favData), // Pass the retrieved JSON data
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((response) => {
-            // Handle the Symfony response
+          fetch("update-saved-films", {
+            method: "POST",
+            body: JSON.stringify(favData), // Pass the retrieved JSON data
+            headers: {
+              "Content-Type": "application/json",
+            },
           })
-          .catch((error) => {
-            // Handle any errors
-          });
+            .then((response) => {
+              // Handle the Symfony response
+            })
+            .catch((error) => {
+              // Handle any errors
+            });
+        } else {
+          //show user error if they are not logged in
+          alert(
+            "Please login or create an account to save a film to your watchlist"
+          );
+        }
       });
 
       cardBody.append(cardHeader, cardOverview);
