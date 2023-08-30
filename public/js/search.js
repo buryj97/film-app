@@ -254,9 +254,9 @@ function generateCards(responseData) {
         cardOverview.text(limit(responseData.result[i].overview) + "...");
       }
 
-      const cardFavorite = $("<a>").addClass(
-        "bi bi-heart col-1 align-self-end me-3"
-      );
+      const cardFavorite = $("<a>")
+        .addClass("bi bi-heart col-1 align-self-end me-3")
+        .attr("aria-label", "Add to Watchlist");
 
       iconsDiv.append(cardFavorite);
 
@@ -284,12 +284,13 @@ function generateCards(responseData) {
           // Handle any errors
         });
 
-      // create variable to pass data to SQL server when a user saves a film to their watchlist
       cardFavorite.on("click", function () {
         //ensure user is logged in by checking for presence of account icon in the nav bar
         if (isAuthenticated === true) {
           $(this).toggleClass("bi-heart");
           $(this).toggleClass("bi-heart-fill");
+
+          // create variables to pass data to SQL server when a user saves a film to their watchlist
           favData.title = responseData.result[i].title;
           favData.overview = responseData.result[i].overview;
           favData.posterPath =
@@ -309,12 +310,8 @@ function generateCards(responseData) {
               "Content-Type": "application/json",
             },
           })
-            .then((response) => {
-              // Handle the Symfony response
-            })
-            .catch((error) => {
-              // Handle any errors
-            });
+            .then((response) => {})
+            .catch((error) => {});
         } else {
           //show user error if they are not logged in
           alert(
