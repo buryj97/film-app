@@ -2,9 +2,56 @@
 <html lang="en">
 
 <head>
+        <script src="js/tarteaucitron/tarteaucitron.js"></script>
+
+        <script type="text/javascript">
+        tarteaucitron.init({
+    	  "privacyUrl": "{{ path('app_privacy') }}", /* Privacy policy url */
+          "bodyPosition": "top", /* or top to bring it as first element for accessibility */
+
+    	  "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
+    	  "cookieName": "tarteaucitron", /* Cookie name */
+    
+    	  "orientation": "middle", /* Banner position (top - bottom) */
+       
+          "groupServices": false, /* Group services by category */
+          "showDetailsOnClick": true, /* Click to expand the description */
+          "serviceDefaultState": "wait", /* Default state (true - wait - false) */
+                           
+    	  "showAlertSmall": false, /* Show the small banner on bottom right */
+    	  "cookieslist": false, /* Show the cookie list */
+                           
+          "closePopup": false, /* Show a close X on the banner */
+
+          "showIcon": true, /* Show cookie icon to manage cookies */
+          //"iconSrc": "", /* Optionnal: URL or base64 encoded image */
+          "iconPosition": "BottomRight", /* BottomRight, BottomLeft, TopRight and TopLeft */
+
+    	  "adblocker": false, /* Show a Warning if an adblocker is detected */
+                           
+          "DenyAllCta" : true, /* Show the deny all button */
+          "AcceptAllCta" : true, /* Show the accept all button when highPrivacy on */
+          "highPrivacy": true, /* HIGHLY RECOMMANDED Disable auto consent */
+                           
+    	  "handleBrowserDNTRequest": false, /* If Do Not Track == 1, disallow all */
+
+    	  "removeCredit": false, /* Remove credit link */
+    	  "moreInfoLink": true, /* Show more info link */
+
+          "useExternalCss": false, /* If false, the tarteaucitron.css file will be loaded */
+          "useExternalJs": false, /* If false, the tarteaucitron.js file will be loaded */
+
+    	  //"cookieDomain": ".my-multisite-domaine.fr", /* Shared cookie for multisite */
+                          
+          "readmoreLink": "www.findafilm.fr/cookies", /* Change the default readmore link */
+
+          "mandatory": true, /* Show a message about mandatory cookies */
+          "mandatoryCta": true /* Show the disabled accept button when mandatory on */
+        });
+        </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% block title %}Film Finder{% endblock %}</title>
+    <title>{% block title %}Film Finder - Search for a movie to stream on Netflix, Disney, or Amazon{% endblock %}</title>
     <meta name="description"
         content="Find a film to watch tonight with Film Finder! Whether you want a movie that makes you laugh, cry, or fills you with nostalgia, Film Finder can help you decide what to watch. Filter movies by genre, streaming service, language, keywords, and country. Create a watchlist that contains films which are available on streaming services you are already subscribed to, in your country.">
     <meta name="keywords"
@@ -14,22 +61,6 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/style.css">
-    <!-- Matomo -->
-    <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-        var u="https://findafilm.matomo.cloud/";
-        _paq.push(['setTrackerUrl', u+'matomo.php']);
-        _paq.push(['setSiteId', '1']);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.async=true; g.src='//cdn.matomo.cloud/findafilm.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-    </script>
-    <!-- End Matomo Code -->
-
 </head>
 
 <body>
@@ -69,14 +100,32 @@
 
     {% block body %}
 
+
     {% endblock %}
 
     {% block javascripts %}
+    <script type="text/javascript">
+        tarteaucitron.user.matomoId = 1;
+        (tarteaucitron.job = tarteaucitron.job || []).push('matomo');
+        </script>
+        <script>tarteaucitron.user.matomoHost = 'https://findafilm.matomo.cloud/';</script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
+        
 
     {% endblock %}
 </body>
+{% block footer %}
+        <footer class="text-center col-4 mx-auto mt-4">
+            <ul class="list-unstyled d-flex justify-content-around">
+                <li><a href="{{ path('app_contact') }}" class="text-decoration-none text-secondary fs-6">Contact</a></li>
+                <li><a href="{{ path('app_privacy') }}" class="text-decoration-none text-secondary fs-6">Privacy Policy</a></li>
+                <li><a href="{{ path('app_cookie') }}" class="text-decoration-none text-secondary fs-6">Cookie Policy</a></li>
+            </ul>
+        </footer>
+
+    {% endblock %}
 
 </html>

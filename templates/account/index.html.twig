@@ -20,7 +20,7 @@
       <hr>
       <div class="row">
         <div class="col-sm-3">
-          <h6 class="mb-0">Email</h6>
+          <p class="mb-0 h6">Email</p>
         </div>
         <div class="col-sm-9 text-secondary">
           {{ app.user.email }}
@@ -29,7 +29,7 @@
       <hr>
       <div class="row">
         <div class="col-sm-3">
-          <h6 class="mb-0">Country</h6>
+          <p class="mb-0 h6">Country</p>
         </div>
         <div class="col-sm-9 text-secondary">
           {{ app.user.country }}
@@ -38,7 +38,7 @@
       <hr>
       <div class="row">
         <div class="col-sm-3">
-          <h6 class="mb-0">Streaming Services</h6>
+          <p class="mb-0 h6">Streaming Services</p>
         </div>
         <div class="col-sm-9 text-secondary">
         <ul class="list-unstyled">
@@ -51,7 +51,7 @@
       <hr>
       <div class="row">
         <div class="col-sm-3">
-          <h6 class="mb-0">Password</h6>
+          <p class="mb-0 h6">Password</p>
         </div>
         <div class="col-sm-9 text-secondary">
           <p>********</p>
@@ -83,7 +83,7 @@
     <img class="card-img-top" src="{{savedFilms.posterPath}}" alt="Poster for {{ savedFilms.title }}">
 
     <div class="card-body">
-      <h2 class="card-title">{{ savedFilms.title }}</h2>
+      <h3 class="card-title h2">{{ savedFilms.title }}</h3>
 
       {# Limit text length to regularize card size #}
       <p class="card-text">{{ savedFilms.overview|slice(0, 300) }}
