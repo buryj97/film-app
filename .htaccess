@@ -2,7 +2,7 @@
 Options +FollowSymLinks
 RewriteEngine On
 RewriteCond %{HTTPS} !=on
-RewriteRule .* https://example.com/%{REQUEST_URI} [R=301,L]
+RewriteRule .* https://findafilm.fr/%{REQUEST_URI} [R=301,L]
 ; RewriteEngine on
 ; RewriteCond %{HTTP_HOST} ^findafilm.fr [NC,OR]
 ; RewriteCond %{HTTP_HOST} ^www.findafilm.fr [NC]
