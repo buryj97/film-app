@@ -3,7 +3,12 @@ Options +FollowSymLinks
 RewriteEngine On
 RewriteCond %{HTTP_HOST} findafilm\.fr [NC]
 RewriteCond %{SERVER_PORT} 80
+RewriteCond %{HTTP_HOST} ^www.findafilm.fr [NC]
 RewriteRule ^(.*)$ https://www.findafilm.fr/$1 [R,L]
+
+# Sets the HTTP_AUTHORIZATION header removed by Apache
+RewriteCond %{HTTP:Authorization} .+
+RewriteRule ^ - [E=HTTP_AUTHORIZATION:%0]
 # RewriteEngine on
 # RewriteCond %{HTTP_HOST} ^findafilm.fr [NC,OR]
 # RewriteCond %{HTTP_HOST} ^www.findafilm.fr [NC]
