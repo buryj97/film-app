@@ -14,13 +14,16 @@ document.addEventListener("DOMContentLoaded", function () {
 // Retrieve form and handle submission
 
 const form = document.getElementsByClassName("film_search")[0];
+
 form.addEventListener("submit", function (event) {
-  event.preventDefault();
-  if (selectedCheckboxes == null || country == null) {
+  let country = form["film_search[country]"].value;
+  if (country == "" || streamingServices == []) {
     const error = document.getElementById("error");
     error.classList.remove("hidden");
     form.focus();
+    return false;
   } else {
+    event.preventDefault();
     $(".card").remove();
     cursor = "";
     connectAPI();
