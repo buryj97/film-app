@@ -117,7 +117,7 @@ function connectAPI() {
       generateCards(responseData);
     } else {
       // handle errors
-      console.error("Error: " + xhr.status);
+      throw new Error("Error: " + xhr.status);
     }
   });
   // send the request

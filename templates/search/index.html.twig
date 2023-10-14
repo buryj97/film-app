@@ -3,9 +3,10 @@
 {% block body %}
 <h1 class="text-center">Find a Film</h1>
 
-{{ form(form, { 'attr' : { 'class': 'film_search mx-auto col-10 d-flex flex-column' } }) }}
+<p id="noResults" class="h6 hidden text-center">No results found. Try a different keyword and assure that your selected streaming services are available in your country.</p>
 
-<p id="noResults" class="h6 hidden">No results found. Try a different keyword and assure that your selected streaming services are available in your country.</p>
+
+{{ form(form, { 'attr' : { 'class': 'film_search mx-auto col-10 d-flex flex-column' } }) }}
 
 <div id="card-container" class="row row-cols-2 row-cols-md-4 g-4 col-11 mx-auto">
 </div>
