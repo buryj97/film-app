@@ -29,7 +29,7 @@ form.addEventListener("submit", function (event) {
       selectedCheckboxes.push(checkbox.value);
     }
   }
-  if (country == "" || selectedCheckboxes == []) {
+  if (country == null || selectedCheckboxes == null) {
     const error = document.getElementById("error");
     error.classList.remove("hidden");
     form.focus();
