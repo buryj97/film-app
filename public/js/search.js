@@ -120,7 +120,8 @@ function connectAPI() {
       const errors = $("<small>")
         .addClass("text-body-secondary")
         .text("Error: " + xhr.status);
-      errors.append(form);
+      const heading = document.getElementById("heading");
+      errors.append(heading);
     }
   });
   // send the request
