@@ -23,11 +23,6 @@ class ModifyAccountType extends AbstractType
                 'required' => false,
             ])
 
-            ->add('password', PasswordType::class,
-            ['required' => false,
-            'label' => 'Create your password'
-            ])
-
             ->add('firstName', TextType::class,
             ['label' => 'First Name',
             'required' => false])
@@ -114,6 +109,11 @@ class ModifyAccountType extends AbstractType
                 'HBO Max' => 'HBO',
                 'Mubi' => 'Mubi'
             ]
+            ])
+
+            ->add('password', PasswordType::class,
+            ['required' => true,
+            'label' => 'Enter your current password or create a new one'
             ])
 
             ->add('submit', SubmitType::class,

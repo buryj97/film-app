@@ -35,11 +35,14 @@ class AccountController extends AbstractController
     #[Route('/account/modify', name: 'app_account_modify')]
     public function modifyProfile(Request $request, UserPasswordHasherInterface $passwordHasher, UserRepository $repository): Response
     {
-        // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
           /** @var User|null $user */
         $user = $this->getUser(); // Assuming you have a user object
+
         $form = $this->createForm(ModifyAccountType::class, $this->getUser());
+        $form->getErrors(true);
+
 
         $form->handleRequest($request);
 
