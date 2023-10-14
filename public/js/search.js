@@ -139,7 +139,7 @@ function generateCards(responseData) {
     //     "Try a different keyword and assure that your selected streaming services are available in your country."
     // );
     const noResults = document.getElementById("noResults");
-    noResults.removeClass("hidden");
+    noResults.classList.remove("hidden");
   }
 
   for (let i = 0; i < numResults; i++) {
