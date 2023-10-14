@@ -31,6 +31,8 @@ class AdminController extends AbstractController
     public function userNew(Request $request, UserRepository $repository): Response
     {
         $form = $this->createForm(AdminType::class);
+        $form->getErrors(true);
+
 
         $form->handleRequest($request);
 

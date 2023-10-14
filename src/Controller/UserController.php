@@ -16,6 +16,8 @@ class UserController extends AbstractController
     public function signUp(UserRepository $repository, Request $request, UserPasswordHasherInterface $encoder): Response
     {
         $form = $this->createForm(SignUpType::class);
+        $form->getErrors(true);
+
 
         $form->handleRequest($request);
 

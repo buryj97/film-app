@@ -14,6 +14,8 @@ class SearchController extends AbstractController
     public function search(Request $request): Response
     {
         $form = $this->createForm(FilmSearchType::class);
+        $form->getErrors(true);
+
 
         $form->handleRequest($request);
 
