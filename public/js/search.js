@@ -117,7 +117,10 @@ function connectAPI() {
       generateCards(responseData);
     } else {
       // handle errors
-      throw new Error("Error: " + xhr.status);
+      const errors = $("<small>")
+        .addClass("text-body-secondary")
+        .text("Error: " + xhr.status);
+      errors.append(form);
     }
   });
   // send the request
