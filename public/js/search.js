@@ -19,7 +19,7 @@ form.addEventListener("submit", function (event) {
   event.preventDefault();
   const countrySelection = document.getElementById("film_search_country");
   country = countrySelection.value;
-  const streamingServices = document.getElementsByName(
+  const checkboxes = document.getElementsByName(
     "film_search[streamingServices][]"
   );
   const selectedCheckboxes = [];
