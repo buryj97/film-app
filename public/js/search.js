@@ -67,79 +67,77 @@ function connectAPI() {
   const data = null;
 
   const xhr = new XMLHttpRequest();
-  xhr.withCredentials = true;
-  // create the query parameter string
-  let params =
-    "services=" +
-    encodeURIComponent(selectedCheckboxes.join(",")) +
-    "&country=" +
-    encodeURIComponent(country) +
-    "&show_original_language=" +
-    encodeURIComponent(originalLanguage) +
-    "&show_type=" +
-    encodeURIComponent("movie") +
-    "&keyword=" +
-    encodeURIComponent(keywords) +
-    "&genre=" +
-    encodeURIComponent(selectedOptions);
+  if (selectedCheckboxes == null || country == null) {
+    const error = document.getElementById("error");
+    error.classList.remove("hidden");
+    form.focus();
+  } else {
+    xhr.withCredentials = true;
+    // create the query parameter string
+    let params =
+      "services=" +
+      encodeURIComponent(selectedCheckboxes.join(",")) +
+      "&country=" +
+      encodeURIComponent(country) +
+      "&show_original_language=" +
+      encodeURIComponent(originalLanguage) +
+      "&show_type=" +
+      encodeURIComponent("movie") +
+      "&keyword=" +
+      encodeURIComponent(keywords) +
+      "&genre=" +
+      encodeURIComponent(selectedOptions);
 
-  // create parameter necessary for pagination
-  if (cursor !== "") {
-    params += "&cursor=" + encodeURIComponent(cursor);
-  }
-
-  // specify the API endpoint URL
-  const url = "https://streaming-availability.p.rapidapi.com/v2/search/basic";
-
-  // specify the HTTP request method and URL with query parameters
-  xhr.open("GET", url + "?" + params, true);
-
-  // set the content type of the request
-  xhr.setRequestHeader("Content-type", "application/octet-stream");
-
-  // set the RapidAPI headers
-  xhr.setRequestHeader(
-    "x-rapidapi-host",
-    "streaming-availability.p.rapidapi.com"
-  );
-  xhr.setRequestHeader(
-    "x-rapidapi-key",
-    "8d0b2a5100msh66455e428ed9568p197a01jsnb5d4ac778dbc"
-  );
-
-  // listen for the response
-  xhr.addEventListener("load", function () {
-    // check the status of the response
-    if (xhr.status === 200) {
-      // parse the response data
-      responseData = JSON.parse(xhr.responseText);
-      // pass response data to the function to create visual display
-      generateCards(responseData);
-    } else {
-      // handle errors
-      console.error("Error: " + xhr.status);
+    // create parameter necessary for pagination
+    if (cursor !== "") {
+      params += "&cursor=" + encodeURIComponent(cursor);
     }
-  });
-  // send the request
-  xhr.send();
-}
 
+    // specify the API endpoint URL
+    const url = "https://streaming-availability.p.rapidapi.com/v2/search/basic";
+
+    // specify the HTTP request method and URL with query parameters
+    xhr.open("GET", url + "?" + params, true);
+
+    // set the content type of the request
+    xhr.setRequestHeader("Content-type", "application/octet-stream");
+
+    // set the RapidAPI headers
+    xhr.setRequestHeader(
+      "x-rapidapi-host",
+      "streaming-availability.p.rapidapi.com"
+    );
+    xhr.setRequestHeader(
+      "x-rapidapi-key",
+      "8d0b2a5100msh66455e428ed9568p197a01jsnb5d4ac778dbc"
+    );
+
+    // listen for the response
+    xhr.addEventListener("load", function () {
+      // check the status of the response
+      if (xhr.status === 200) {
+        // parse the response data
+        responseData = JSON.parse(xhr.responseText);
+        // pass response data to the function to create visual display
+        generateCards(responseData);
+      } else {
+        // handle errors
+        console.error("Error: " + xhr.status);
+      }
+    });
+    // send the request
+    xhr.send();
+  }
+}
 // ___________________________________________
 function generateCards(responseData) {
   const numResults = responseData.result.length;
 
   // Tell user if there are no results
   if (numResults < 1) {
-    // alert(
-    //   "No results for" +
-    //     ' "' +
-    //     keywords +
-    //     '".' +
-    //     "\n" +
-    //     "Try a different keyword and assure that your selected streaming services are available in your country."
-    // );
     const noResults = document.getElementById("noResults");
     noResults.classList.remove("hidden");
+    form.focus();
   }
 
   for (let i = 0; i < numResults; i++) {

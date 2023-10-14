@@ -5,45 +5,10 @@
 
 <p id="noResults" class="h6 hidden text-center">No results found. Try a different keyword and assure that your selected streaming services are available in your country.</p>
 
+<p id="error" class="h6 hidden text-center">Please select a country and at least 1 streaming service.</p>
 
-{# {{ form(form, { 'attr' : { 'class': 'film_search mx-auto col-10 d-flex flex-column' } }) }} #}
 
-{{ form_start(form, { 'attr' : { 'class': 'film_search mx-auto col-10 d-flex flex-column' } }) }}
-<div class="form-group">
-    {{ form_label(form.keywords, 'Keywords') }}
-    {{ form_widget(form.keywords) }}
-    {{ form_errors(form.keywords) }}
-</div>
-
-<div class="form-group">
-    {{ form_label(form.genre, 'Genre') }}
-    {{ form_widget(form.genre) }}
-    {{ form_errors(form.genre) }}
-</div>
-
-<div class="form-group">
-    {{ form_label(form.country, 'Your Country *') }}
-    {{ form_widget(form.country) }}
-    {{ form_errors(form.country) }}
-</div>
-
-<div class="form-group">
-    {{ form_label(form.language, 'Original Language') }}
-    {{ form_widget(form.language) }}
-    {{ form_errors(form.language) }}
-</div>
-
-<div class="form-group">
-    {{ form_label(form.streamingServices, 'Your Subscriptions (4 maximum) *') }}
-    {{ form_widget(form.streamingServices) }}
-    {{ form_errors(form.streamingServices) }}
-</div>
-
-<div class="form-group">
-    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary col-12 mt-3'}}) }}
-</div>
-
-{{ form_end(form) }}
+{{ form(form, { 'attr' : { 'class': 'film_search mx-auto col-10 d-flex flex-column' } }) }}
 
 
 <div id="card-container" class="row row-cols-2 row-cols-md-4 g-4 col-11 mx-auto">
