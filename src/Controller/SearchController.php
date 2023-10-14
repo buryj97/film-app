@@ -19,6 +19,13 @@ class SearchController extends AbstractController
 
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+        return $this->render('search/index.html.twig', 
+         [
+            'form' => $form->createView()
+         ]);
+    }
+
          return $this->render('search/index.html.twig', 
          [
             'form' => $form->createView()
