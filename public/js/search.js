@@ -36,6 +36,7 @@ form.addEventListener("submit", function (event) {
     return false;
   } else {
     $(".card").remove();
+    error.classList.add("hidden");
     cursor = "";
     connectAPI();
   }
