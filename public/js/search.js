@@ -18,7 +18,7 @@ const form = document.getElementsByClassName("film_search")[0];
 form.addEventListener("submit", function (event) {
   event.preventDefault();
   const countrySelection = document.getElementById("film_search_country");
-  country = countrySelection.value;
+  const country = countrySelection.value;
   const checkboxes = document.getElementsByName(
     "film_search[streamingServices][]"
   );
@@ -29,7 +29,7 @@ form.addEventListener("submit", function (event) {
       selectedCheckboxes.push(checkbox.value);
     }
   }
-  if (country == null || selectedCheckboxes == null) {
+  if (country == "" || selectedCheckboxes.length === 0) {
     const error = document.getElementById("error");
     error.classList.remove("hidden");
     form.focus();
