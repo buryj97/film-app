@@ -18,7 +18,7 @@ const form = document.getElementsByClassName("film_search")[0];
 form.addEventListener("submit", function (event) {
   let country = form["film_search[country]"].value;
   let streamingServices = form["film_search[streamingServices][]"];
-  if (country == "" || streamingServices == []) {
+  if (country == "" || streamingServices == "") {
     const error = document.getElementById("error");
     error.classList.remove("hidden");
     form.focus();
