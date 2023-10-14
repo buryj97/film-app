@@ -130,14 +130,16 @@ function generateCards(responseData) {
 
   // Tell user if there are no results
   if (numResults < 1) {
-    alert(
-      "No results for" +
-        ' "' +
-        keywords +
-        '".' +
-        "\n" +
-        "Try a different keyword and assure that your selected streaming services are available in your country."
-    );
+    // alert(
+    //   "No results for" +
+    //     ' "' +
+    //     keywords +
+    //     '".' +
+    //     "\n" +
+    //     "Try a different keyword and assure that your selected streaming services are available in your country."
+    // );
+    const noResults = document.getElementById("noResults");
+    noResults.removeClass("hidden");
   }
 
   for (let i = 0; i < numResults; i++) {
