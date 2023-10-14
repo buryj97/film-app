@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
 const form = document.getElementsByClassName("film_search")[0];
 
 form.addEventListener("submit", function (event) {
+  event.preventDefault();
   const countrySelection = document.getElementById("film_search_country");
   country = countrySelection.value;
   const streamingServices = document.getElementsByName(
@@ -34,7 +35,6 @@ form.addEventListener("submit", function (event) {
     form.focus();
     return false;
   } else {
-    event.preventDefault();
     $(".card").remove();
     cursor = "";
     connectAPI();
