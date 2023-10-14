@@ -16,9 +16,19 @@ document.addEventListener("DOMContentLoaded", function () {
 const form = document.getElementsByClassName("film_search")[0];
 
 form.addEventListener("submit", function (event) {
-  let country = form["film_search[country]"].value;
-  let streamingServices = form["film_search[streamingServices][]"];
-  if (country == "" || streamingServices == "") {
+  const countrySelection = document.getElementById("film_search_country");
+  country = countrySelection.value;
+  const streamingServices = document.getElementsByName(
+    "film_search[streamingServices][]"
+  );
+  const selectedCheckboxes = [];
+  for (let i = 0; i < checkboxes.length; i++) {
+    const checkbox = checkboxes[i];
+    if (checkbox.checked) {
+      selectedCheckboxes.push(checkbox.value);
+    }
+  }
+  if (country == "" || selectedCheckboxes == []) {
     const error = document.getElementById("error");
     error.classList.remove("hidden");
     form.focus();
