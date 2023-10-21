@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\SignUpType;
 use App\Repository\UserRepository;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,15 +24,18 @@ class UserController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
+
             $password = $user->getPassword();
             $cryptedPassword = $encoder->hashPassword($user, $password);
             $user->setPassword($cryptedPassword);
+            
             $user->setRoles(["ROLE_USER"]);
 
             $repository->save($user, true);
 
             return $this->redirectToRoute('app_login');
         }
+   
         return $this->render('user/signup.html.twig', [
             'form' => $form->createView()
         ]);
