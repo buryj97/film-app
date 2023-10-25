@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Form\SignUpType;
 use App\Repository\UserRepository;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
