@@ -10,7 +10,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
 # Redirect to HTTPS for the www subdomain
 RewriteCond %{HTTPS} !=on
 RewriteCond %{HTTP_HOST} ^www\.findafilm\.fr$ [NC]
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
+RewriteRule ^(.*)$ https://findafilm.fr/%{REQUEST_URI} [L,R=301]
 
 Header always set Content-Security-Policy "upgrade-insecure-requests;"
 

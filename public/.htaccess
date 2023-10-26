@@ -25,7 +25,7 @@ RewriteEngine On
 
 RewriteCond %{HTTPS} !=on
 RewriteCond %{HTTP_HOST} ^findafilm\.fr$ [NC]
-RewriteRule ^(.\*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
+RewriteRule ^(.\*)$ https://findafilm.fr/%{REQUEST_URI} [L,R=301]
 
 # Redirect to HTTPS for the www subdomain
 
