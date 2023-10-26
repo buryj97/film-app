@@ -21,6 +21,12 @@ DirectoryIndex index.php
 Options +FollowSymlinks
 RewriteEngine On
 
+<IfModule mod_rewrite.c>
+RewriteCond %{HTTPS} off          [OR]
+RewriteCond %{HTTP_HOST} ^www\.   [NC]
+RewriteRule ^ https://findafilm.fr%{REQUEST_URI} [R=301,L,NE]
+</IfModule>
+
 # Redirect to HTTPS for the main domain (non-www)
 
 RewriteCond %{HTTPS} !=on
