@@ -291,7 +291,10 @@ function generateCards(responseData) {
           "Content-Type": "application/json",
         },
       })
-        .then((response) => response.json())
+        .then((response) => {
+          response.json();
+          window.location.href = "/"; // Redirect to the home page
+        })
         .then((savedFilms) => {
           // Inside the loop:
           checkSavedFilms(savedFilms, cardFavorite);
