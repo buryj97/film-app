@@ -17,6 +17,7 @@ const form = document.getElementsByClassName("film_search")[0];
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
+  noResults.classList.add("hidden");
   const countrySelection = document.getElementById("film_search_country");
   const country = countrySelection.value;
   const checkboxes = document.getElementsByName(
