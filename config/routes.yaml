@@ -28,11 +28,11 @@ update_saved_films:
   methods: [POST]
   defaults:
     _controller: App\Controller\ApiResponseController::updateSavedFilms
-# get_saved_films:
-#   path: /get-saved-films
-#   methods: [GET]
-#   defaults:
-#     _controller: App\Controller\ApiResponseController::getSavedFilms
+get_saved_films:
+  path: /get-saved-films
+  methods: [GET]
+  defaults:
+    _controller: App\Controller\ApiResponseController::getSavedFilms
 remove_film:
   path: /remove-film
   methods: [GET|POST]

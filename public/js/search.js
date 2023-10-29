@@ -275,7 +275,20 @@ function generateCards(responseData) {
         .addClass("bi bi-heart col-1 align-self-end me-3")
         .attr("aria-label", "Add to Watchlist");
 
-      iconsDiv.append(cardFavorite);
+      fetch("get-saved-films", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((savedFilms) => {
+          // Inside the loop:
+          checkSavedFilms(savedFilms, cardFavorite);
+        })
+        .catch((error) => {
+          console.log("Problem fetching films:", error);
+        });
 
       function checkSavedFilms(savedFilms, cardFavorite) {
         savedFilms.forEach((savedFilm) => {
@@ -286,22 +299,7 @@ function generateCards(responseData) {
         });
       }
 
-      fetch("get-saved-films", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => {
-          response.json();
-        })
-        .then((savedFilms) => {
-          // Inside the loop:
-          checkSavedFilms(savedFilms, cardFavorite);
-        })
-        .catch((error) => {
-          // Handle any errors
-        });
+      iconsDiv.append(cardFavorite);
 
       cardFavorite.on("click", function () {
         //ensure user is logged in by checking for presence of account icon in the nav bar
