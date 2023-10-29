@@ -293,7 +293,7 @@ function generateCards(responseData) {
       })
         .then((response) => {
           response.json();
-          window.location.href = "/"; // Redirect to the home page
+          // window.location.href = "/"; // Redirect to the home page
         })
         .then((savedFilms) => {
           // Inside the loop:
